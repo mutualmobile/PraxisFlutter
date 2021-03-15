@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:praxis/src/app/screens/joke_list/joke_list_page.dart';
 
 import 'package:praxis/src/app/screens/screens.dart';
 
@@ -11,6 +12,11 @@ class PraxisRouter {
     switch (settings.name) {
       case Screens.home:
         return _buildRoute(settings, HomePage());
+      case Screens.jokeList:
+        Map<String, dynamic> args = settings.arguments as Map;
+        return _buildRoute(
+          settings,
+          JokeListPage(jokeList: args['jokeList']));
     }
   }
 
