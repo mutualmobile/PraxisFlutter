@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../screens.dart';
 
 class HomeController extends Controller {
+  bool showProgress = false;
 
   final HomePresenter homePresenter;
 
@@ -15,6 +16,7 @@ class HomeController extends Controller {
   @override
   void initListeners() {
     homePresenter.getJokeListOnNext = (JokeList jokeList) {
+      changeProgressbarVisibility(false);
       jokeScreen(jokeList);
     };
     homePresenter.getJokeListOnComplete = () {};
@@ -24,12 +26,20 @@ class HomeController extends Controller {
     };
   }
 
-  void fetchJokeList() => homePresenter.getJokeList();
+  void fetchJokeList() {
+    changeProgressbarVisibility(true);
+    homePresenter.getJokeList();
+  }
 
   void jokeScreen(JokeList jokeList) {
     Navigator.of(getContext()).pushNamed(Screens.jokeList, arguments: {
       'jokeList': jokeList
     });
+  }
+
+  void changeProgressbarVisibility(bool visibility) {
+    showProgress = visibility;
+    refreshUI();
   }
 
 }

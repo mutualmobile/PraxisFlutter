@@ -24,45 +24,59 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         appBar: AppBar(
           title: Text("Praxis"),
         ),
-        body: Scaffold(
-          key: globalKey,
-          body: new Container(
+        key: globalKey,
+        body: Container(
             color: Colors.white,
-            child: new SizedBox.expand(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: SizedBox.expand(
+              child:  Column(
                 children: [
-                  new Container(
-                    padding:  const EdgeInsets.only(bottom: 20.0),
-                    child: new Text("Chuck Norris Random Joke Generator", style: new TextStyle(fontSize: 20.0, color: Colors.grey)),
-                  ),
                   ControlledWidgetBuilder<HomeController>(builder: (context, controller) {
-                    return RaisedButton(
-                      child: const Text('Show 5 random Jokes', style: const TextStyle(fontSize: 20.0)),
-                      color: Color.fromRGBO(46, 204, 113, 1.0),
-                      textColor: Colors.white,
-                      elevation: 4.0,
-                      splashColor: Colors.blueGrey,
-                      onPressed: () {controller.fetchJokeList();},
-                      padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                    return Visibility(
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible: controller.showProgress,
+                      child: LinearProgressIndicator(),
                     );
                   }),
-                  ControlledWidgetBuilder<HomeController>(builder: (context, controller) {
-                    return RaisedButton(
-                      child: const Text('About', style: const TextStyle(fontSize: 20.0)),
-                      color: Color.fromRGBO(46, 204, 113, 1.0),
-                      textColor: Colors.white,
-                      elevation: 4.0,
-                      splashColor: Colors.blueGrey,
-                      onPressed: () {},
-                      padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
-                    );
-                  })
+                  Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding:  const EdgeInsets.only(bottom: 20.0),
+                            child: new Text("Chuck Norris Random Joke Generator", style: new TextStyle(fontSize: 20.0, color: Colors.grey)),
+                          ),
+                          ControlledWidgetBuilder<HomeController>(builder: (context, controller) {
+                            return RaisedButton(
+                              child: const Text('Show 5 random Jokes', style: const TextStyle(fontSize: 20.0)),
+                              color: Color.fromRGBO(46, 204, 113, 1.0),
+                              textColor: Colors.white,
+                              elevation: 4.0,
+                              splashColor: Colors.blueGrey,
+                              onPressed: () {controller.fetchJokeList();},
+                              padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                            );
+                          }),
+                          ControlledWidgetBuilder<HomeController>(builder: (context, controller) {
+                            return RaisedButton(
+                              child: const Text('About', style: const TextStyle(fontSize: 20.0)),
+                              color: Color.fromRGBO(46, 204, 113, 1.0),
+                              textColor: Colors.white,
+                              elevation: 4.0,
+                              splashColor: Colors.blueGrey,
+                              onPressed: () {},
+                              padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                            );
+                          })
+                        ],
+                      )
+                  )
                 ],
               ),
             )
-          ),
-        ),
+        )
       );
   }
 }
