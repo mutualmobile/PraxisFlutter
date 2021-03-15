@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:clean_architecture/clean_architecture.dart';
+import 'package:praxis/src/data/repositories/data_jokes_repository.dart';
 
 import 'home_controller.dart';
 
@@ -14,7 +15,7 @@ class HomePage extends View {
 }
 
 class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController());
+  _HomePageState() : super(HomeController(DataJokesRepository()));
 
   @override
   // TODO: implement view
@@ -42,7 +43,7 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
                       textColor: Colors.white,
                       elevation: 4.0,
                       splashColor: Colors.blueGrey,
-                      onPressed: () {},
+                      onPressed: () {controller.fetchJokeList();},
                       padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                     );
                   }),
