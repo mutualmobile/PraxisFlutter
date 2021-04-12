@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:clean_architecture/clean_architecture.dart';
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis/src/data/repositories/data_jokes_repository.dart';
 
 import 'home_controller.dart';
@@ -19,6 +19,7 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
 
   @override
   Widget get view {
+    print("3984756947869");
       return Scaffold(
         appBar: AppBar(
           title: Text("Praxis"),

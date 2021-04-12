@@ -1,5 +1,5 @@
 
-import 'package:clean_architecture/clean_architecture.dart';
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis/src/domain/usecases/get_five_random_jokes_usecase.dart';
 
 class HomePresenter extends Presenter {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
-import 'package:clean_architecture/clean_architecture.dart';
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis/src/app/screens/splash/splash_page.dart';
 import 'package:praxis/src/data/exceptions/APIException.dart';
 import 'package:praxis/src/utils/praxis_router.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    CleanArchitecture.debugModeOn();
+    FlutterCleanArchitecture.debugModeOn();
     return MaterialApp(
       title: 'Praxis',
       theme: ThemeData(

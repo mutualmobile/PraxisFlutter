@@ -1,5 +1,5 @@
 
-import 'package:clean_architecture/clean_architecture.dart';
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis/src/app/screens/joke_list/joke_list_controller.dart';
 import 'package:praxis/src/app/screens/screens.dart';

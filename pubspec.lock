@@ -29,13 +29,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
-  clean_architecture:
-    dependency: "direct main"
-    description:
-      path: clean_architecture
-      relative: true
-    source: path
-    version: "0.0.1"
   clock:
     dependency: transitive
     description:
@@ -69,6 +62,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_clean_architecture:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "14b3e3a885bd16543ec895225b3f4bcf2d2408f8"
+      url: "https://github.com/mutualmobile/flutter_clean_architecture.git"
+    source: git
+    version: "5.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -94,7 +96,7 @@ packages:
       name: logging
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.4"
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:
@@ -115,7 +117,7 @@ packages:
       name: nested
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.4"
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -136,21 +138,21 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.3"
+    version: "5.0.0"
   responsive_builder:
     dependency: "direct main"
     description:
       name: responsive_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.4.1"
   rxdart:
     dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.25.0"
+    version: "0.26.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -213,5 +215,5 @@ packages:
     source: hosted
     version: "2.1.0"
 sdks:
-  dart: ">=2.12.0-0.0 <3.0.0"
-  flutter: ">=1.17.0"
+  dart: ">=2.12.0 <3.0.0"
+  flutter: ">=1.16.0"

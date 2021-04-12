@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:flutter/widgets.dart';
-import 'package:clean_architecture/clean_architecture.dart';
+import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'splash_controller.dart';
 import 'package:logging/logging.dart';
 
