@@ -22,7 +22,6 @@ class _JokeListPageState extends ViewState<JokeListPage, JokeListController> {
   _JokeListPageState(jokeList) : super(JokeListController(jokeList));
 
   @override
-  // TODO: implement view
   Widget get view  {
     return Scaffold(
       appBar: AppBar(

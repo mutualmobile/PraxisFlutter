@@ -18,7 +18,6 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
   _HomePageState() : super(HomeController(DataJokesRepository()));
 
   @override
-  // TODO: implement view
   Widget get view {
       return Scaffold(
         appBar: AppBar(
