@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
+import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/data/repositories/jokes/data_jokes_repository.dart';
@@ -39,7 +40,18 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
   ControlledWidgetBuilder<HomeController> aboutWidget() {
     return ControlledWidgetBuilder<HomeController>(
         builder: (context, controller) {
-      return PraxisButton(title: "About", onPressed: () {});
+      return PraxisButton(
+          title: "About",
+          onPressed: () {
+            showAlertDialog(
+                context: context,
+                title: "About Praxis",
+                content:
+                    "PraxisFlutter is a sample flutter app which can be used as a base project for other projects written in flutter. "
+                    "The app uses clean architecture to provide a robust base to the app.\n\n"
+                    "The http library is used to fetch jokes along with the async/await which handles connections asynchronously and makes the app more reliable.",
+                defaultActionText: "OK");
+          });
     });
   }
 
