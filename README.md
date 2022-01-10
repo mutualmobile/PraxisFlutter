@@ -1,6 +1,21 @@
 # praxis_flutter
 
-Praxis For Flutter
+Minimal Flutter project targetting the following platforms
+
+* Android ✅ DONE
+* iOS ✅ DONE
+* macOS ✅ DONE
+* Web ✅ DONE
+
+### Screenshots
+
+<img src="art/art2.png" alt="drawing" style="width:200px;"/>
+
+<img src="art/art1.png" alt="drawing" style="width:200px;"/>
+
+<img src="art/art3.png" alt="drawing" style="width:200px;"/>
+
+<img src="art/art4.png" alt="drawing" style="width:200px;"/>
 
 ## Getting Started
 
@@ -12,5 +27,5 @@ A few resources to get you started if this is your first Flutter project:
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
 For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on
+mobile development, and a full API reference.
