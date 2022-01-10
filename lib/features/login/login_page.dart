@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/application/widgets/platform_text_field.dart';
-import 'package:praxis_flutter/application/widgets/widget_extensions.dart';
+import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 
 class LoginPage extends StatelessWidget {
