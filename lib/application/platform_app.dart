@@ -16,9 +16,10 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   @override
   CupertinoApp buildCupertino(BuildContext context) {
     return CupertinoApp.router(
+      debugShowCheckedModeBanner: false,
       title: title,
       theme: const CupertinoThemeData(
-        brightness: Brightness.light,
+        brightness: Brightness.dark,
       ),
       routeInformationParser: praxisRoutes.routeInformationParser,
       routerDelegate: praxisRoutes.routerDelegate,
@@ -28,6 +29,7 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   @override
   MaterialApp buildMaterial(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: title,
       theme: FlexColorScheme.light(scheme: FlexScheme.blueWhale).toTheme,
       darkTheme: FlexColorScheme.dark(scheme: FlexScheme.blueWhale).toTheme,

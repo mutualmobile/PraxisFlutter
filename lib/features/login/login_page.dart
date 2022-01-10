@@ -9,7 +9,10 @@ import 'package:praxis_flutter/application/widgets/widget_extensions.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final loginController = TextEditingController(text: 'random');
+  final passwordController = TextEditingController(text: 'random');
+
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +35,14 @@ class LoginPage extends StatelessWidget {
         const FlutterLogo(
           size: 120,
         ).paddingAll(24),
-        const PraxisTextField(
+        PraxisTextField(
           hintText: "Username",
+          controller: loginController,
         ).paddingAll(8),
-        const PraxisTextField(
+        PraxisTextField(
           hintText: "Password",
           obscureText: true,
+          controller: passwordController,
         ).paddingAll(8),
         loginButton(context)
       ],

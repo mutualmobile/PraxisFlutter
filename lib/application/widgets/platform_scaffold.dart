@@ -18,7 +18,10 @@ class PraxisScaffold
     return CupertinoPageScaffold(
       backgroundColor: CupertinoTheme.of(context).scaffoldBackgroundColor,
       navigationBar: iosNavBar,
-      child: body,
+      child: SizedBox(
+        child: body,
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 
@@ -27,7 +30,10 @@ class PraxisScaffold
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: androidAppBar,
-      body: body,
+      body: SizedBox(
+        child: body,
+        width: MediaQuery.of(context).size.width,
+      ),
     );
   }
 }
