@@ -10,5 +10,6 @@ class SplashController extends Controller {
 
   void press(bool isPressed) {
     pressed = isPressed;
+    refreshUI();
   }
 }

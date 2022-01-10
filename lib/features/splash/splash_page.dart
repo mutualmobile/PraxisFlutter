@@ -19,7 +19,9 @@ class _SplashScreenState extends ViewState<SplashScreen, SplashController> {
 
   @override
   Widget get view => PraxisScaffold(
-          body: Center(
+      androidAppBar: AppBar(title: praxisPlayground(),),
+      iosNavBar: CupertinoNavigationBar(middle: praxisPlayground(),),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -30,7 +32,7 @@ class _SplashScreenState extends ViewState<SplashScreen, SplashController> {
                 builder: (context, controller) {
               return PraxisButton(
                 title:
-                    !controller.pressed ? "Press Me!" : "Pressed me! woo hoo!",
+                    !controller.pressed ? "Press Me!" : "You Pressed me! woo hoo!",
                 onPressed: () {
                   controller.press(!controller.pressed);
                 },
@@ -45,4 +47,6 @@ class _SplashScreenState extends ViewState<SplashScreen, SplashController> {
           ],
         ),
       ));
+
+  Text praxisPlayground() => const Text("Welcome to Praxis Playground");
 }

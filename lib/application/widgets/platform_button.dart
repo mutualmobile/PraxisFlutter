@@ -16,6 +16,7 @@ class PraxisButton
   @override
   MaterialButton buildMaterial(BuildContext context) {
     return MaterialButton(
+      color: Theme.of(context).colorScheme.secondary,
       onPressed: onPressed,
       child: Text(title),
     );

@@ -1,6 +1,6 @@
 # praxis_flutter
 
-Minimal Flutter project targetting the following platforms
+Minimal Flutter project targeting the following platforms
 
 * Android ✅ DONE
 * iOS ✅ DONE
