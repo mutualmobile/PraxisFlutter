@@ -1,4 +1,4 @@
-# praxis_flutter
+# Praxis Flutter Playground
 
 Minimal Flutter project targeting the following platforms
 
