@@ -7,6 +7,7 @@ import 'package:praxis_flutter/firebase_options.dart'; // not committed to git!
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
   setupFirebaseServices();
   runApp(const PraxisApp());
