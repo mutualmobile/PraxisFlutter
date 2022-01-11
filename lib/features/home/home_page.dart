@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
@@ -33,7 +33,7 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [heading(), progressIndicator(), aboutWidget()],
+          children: [heading().paddingAll(4), progressIndicator().paddingAll(4), aboutWidget().paddingAll(4)],
         ));
   }
 
@@ -55,7 +55,7 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
     });
   }
 
-  heading() {
+  Widget heading() {
     return const Text(
       "Chuck Norris Random Joke Generator",
     );

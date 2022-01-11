@@ -32,7 +32,6 @@ dependencies:
   cloud_functions: ^3.2.5
   firebase_messaging: ^11.2.5
   firebase_storage: ^10.2.5
-  firebase_crashlytics: ^2.4.5
   firebase_dynamic_links: ^4.0.4
   firebase_in_app_messaging: ^0.6.0+6
   firebase_app_installations: ^0.1.0+5
