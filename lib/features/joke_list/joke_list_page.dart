@@ -3,11 +3,11 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke_list.dart';
 import 'package:praxis_flutter/features/joke_list/joke_list_controller.dart';
+import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 
 class JokeListPage extends View {
-  final JokeList jokeList;
+  final UIJokeList jokeList;
 
   JokeListPage({Key? key, required this.jokeList}) : super(key: key);
 
@@ -31,9 +31,9 @@ class _JokeListPageState extends ViewState<JokeListPage, JokeListController> {
         body: ControlledWidgetBuilder<JokeListController>(
           builder: (context, controller) {
             return ListView.builder(
-                itemCount: controller.jokeList.jokeList.length,
+                itemCount: controller.jokeList.jokes.length,
                 itemBuilder: (context, index) {
-                  return Text(controller.jokeList.jokeList[index].joke)
+                  return Text(controller.jokeList.jokes[index].joke)
                       .paddingAll(8);
                 });
           },

@@ -1,5 +1,7 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_flutter/domain/use_cases/get_five_random_jokes_usecase.dart';
+import 'package:praxis_flutter/ui/model/jokes/ui_jokes_mapper.dart';
+import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
+import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 
 class HomePresenter extends Presenter {
   Function? getJokeListOnNext;
@@ -38,6 +40,8 @@ class _GetJokeListUseCaseObserver extends Observer<GetJokeListUseCaseResponse> {
 
   @override
   void onNext(response) {
-    presenter.getJokeListOnNext?.call(response?.jokeList);
+    var mapper = UIJokeMapper(); // TODO where to write this mapper ?
+    var jokes = response?.jokeList ?? DMJokeList("EmptyList", []);
+    presenter.getJokeListOnNext?.call(mapper.mapToPresentation(jokes));
   }
 }

@@ -28,15 +28,13 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   @override
   MaterialApp buildMaterial(BuildContext context) {
     var lightTheme =
-        FlexColorScheme.light(scheme: FlexScheme.blueWhale).toTheme;
-    var darkTheme = FlexColorScheme.dark(scheme: FlexScheme.blueWhale).toTheme;
+        FlexColorScheme.light(scheme: FlexScheme.amber).toTheme;
+    var darkTheme = FlexColorScheme.dark(scheme: FlexScheme.amber).toTheme;
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: title,
-      theme: lightTheme.copyWith(
-          textTheme: GoogleFonts.latoTextTheme(lightTheme.textTheme)),
-      darkTheme: darkTheme.copyWith(
-          textTheme: GoogleFonts.latoTextTheme(lightTheme.textTheme)),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ThemeMode.system,
       routeInformationParser: praxisRoutes.routeInformationParser,
       routerDelegate: praxisRoutes.routerDelegate,
