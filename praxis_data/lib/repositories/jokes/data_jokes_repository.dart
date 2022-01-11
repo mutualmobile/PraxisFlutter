@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:logging/logging.dart';
-import 'package:praxis_flutter/data/network/http_helper.dart';
-import 'package:praxis_flutter/data/network/url.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke_list.dart';
-import 'package:praxis_flutter/domain/repositories/jokes/jokes_repository.dart';
+import 'package:praxis_data/network/http_helper.dart';
+import 'package:praxis_data/network/url.dart';
+import 'package:praxis_flutter_domain/entities/jokes/joke_list.dart';
+import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
 
 class DataJokesRepository implements JokesRepository {
   late Logger _logger;

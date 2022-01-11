@@ -1,5 +1,5 @@
-import 'package:praxis_flutter/domain/entities/login_result.dart';
-import 'package:praxis_flutter/domain/repositories/login_repo.dart';
+import 'package:praxis_flutter_domain/entities/login_result.dart';
+import 'package:praxis_flutter_domain/repositories/login_repo.dart';
 
 class PraxisLoginRepo extends LoginRepo {
   @override

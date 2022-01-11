@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke_list.dart';
 import 'package:praxis_flutter/features/home/home_page.dart';
 import 'package:praxis_flutter/features/joke_list/joke_list_page.dart';
 import 'package:praxis_flutter/features/login/login_page.dart';
 import 'package:praxis_flutter/features/splash/splash_page.dart';
+import 'package:praxis_flutter_domain/entities/jokes/joke_list.dart';
 
 const loginRoute = '/login';
 const jokeListRoute = "/jokesList";

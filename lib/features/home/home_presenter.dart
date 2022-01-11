@@ -1,5 +1,5 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_flutter/domain/use_cases/get_five_random_jokes_usecase.dart';
+import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
 
 class HomePresenter extends Presenter {
   Function? getJokeListOnNext;

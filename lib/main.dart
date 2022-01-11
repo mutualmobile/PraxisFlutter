@@ -3,12 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/application/platform_app.dart';
-import 'package:praxis_flutter/firebase_options.dart';// not committed to git!
+import 'package:praxis_flutter/firebase_options.dart'; // not committed to git!
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
-  await Firebase.initializeApp(
+  setupFirebaseServices();
+  runApp(const PraxisApp());
+}
+
+void setupFirebaseServices() async {
+  FirebaseApp firebaseApp = await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const PraxisApp());
+  final FirebaseFirestore firestore =
+      FirebaseFirestore.instanceFor(app: firebaseApp);
 }

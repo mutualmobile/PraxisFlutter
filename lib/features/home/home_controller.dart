@@ -1,8 +1,8 @@
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:go_router/go_router.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke_list.dart';
 import 'package:praxis_flutter/features/home/home_presenter.dart';
 import 'package:praxis_flutter/routing/routes.dart';
+import 'package:praxis_flutter_domain/entities/jokes/joke_list.dart';
 
 class HomeController extends Controller {
   bool showProgress = false;

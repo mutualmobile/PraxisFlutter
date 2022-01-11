@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-import 'package:praxis_flutter/data/repositories/jokes/data_jokes_repository.dart';
 
 import 'home_controller.dart';
 

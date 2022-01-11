@@ -3,8 +3,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke_list.dart';
 import 'package:praxis_flutter/features/joke_list/joke_list_controller.dart';
+import 'package:praxis_flutter_domain/entities/jokes/joke_list.dart';
 
 class JokeListPage extends View {
   final JokeList jokeList;

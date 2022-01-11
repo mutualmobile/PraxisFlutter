@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:praxis_flutter/domain/entities/jokes/joke.dart';
+import 'package:praxis_flutter_domain/entities/jokes/joke.dart';
 
 class JokeList extends Equatable {
   final String type;

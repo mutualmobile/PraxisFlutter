@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:praxis_flutter/data/network/exceptions/api_exception.dart';
+import 'package:praxis_data/network/exceptions/api_exception.dart';
 
 class HttpHelper {
 
