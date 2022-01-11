@@ -2,7 +2,8 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/features/home/home_presenter.dart';
 import 'package:praxis_flutter/routing/routes.dart';
-import 'package:praxis_flutter_domain/entities/jokes/joke_list.dart';
+import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
+import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 
 class HomeController extends Controller {
   bool showProgress = false;
@@ -13,7 +14,7 @@ class HomeController extends Controller {
 
   @override
   void initListeners() {
-    homePresenter.getJokeListOnNext = (JokeList jokeList) {
+    homePresenter.getJokeListOnNext = (UIJokeList jokeList) {
       changeProgressbarVisibility(false);
       jokeScreen(jokeList);
     };
@@ -29,7 +30,7 @@ class HomeController extends Controller {
     homePresenter.getJokeList();
   }
 
-  void jokeScreen(JokeList jokeList) {
+  void jokeScreen(UIJokeList jokeList) {
     getContext().push(jokeListRoute, extra: jokeList);
   }
 

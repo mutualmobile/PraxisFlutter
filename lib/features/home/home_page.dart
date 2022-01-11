@@ -7,7 +7,7 @@ import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-
+import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
 import 'home_controller.dart';
 
 class HomePage extends View {
@@ -18,7 +18,7 @@ class HomePage extends View {
 }
 
 class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController(DataJokesRepository()));
+  _HomePageState() : super(HomeController(DataJokesRepository(JokesListMapper(JokeMapper()))));
 
   @override
   Widget get view {

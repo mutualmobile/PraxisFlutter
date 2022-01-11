@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
+import 'package:praxis_data/mapper/entity_mapper.dart';
 
-class Joke extends Equatable {
+class DTJoke extends DataModel {
   final int id;
   final String joke;
 
-  const Joke(this.id, this.joke);
+  DTJoke(this.id, this.joke);
 
-  Joke.fromJson(Map<String, dynamic> map)
+  DTJoke.fromJson(Map<String, dynamic> map)
       : id = map['id'],
         joke = map['joke'];
 
@@ -14,7 +15,4 @@ class Joke extends Equatable {
   String toString() {
     return '$id, $joke';
   }
-
-  @override
-  List<Object?> get props => [ id, joke];
 }
