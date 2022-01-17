@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
+import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
+import 'package:praxis_flutter/main.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends View {
@@ -18,7 +18,7 @@ class HomePage extends View {
 }
 
 class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController(DataJokesRepository(JokesListMapper(JokeMapper()))));
+  _HomePageState() : super(locator.get<HomeController>());
 
   @override
   Widget get view {
@@ -33,7 +33,11 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [heading().paddingAll(4), progressIndicator().paddingAll(4), aboutWidget().paddingAll(4)],
+          children: [
+            heading().paddingAll(4),
+            progressIndicator().paddingAll(4),
+            aboutWidget().paddingAll(4)
+          ],
         ));
   }
 

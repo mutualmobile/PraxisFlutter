@@ -25,6 +25,7 @@ dependencies:
   google_sign_in: ^5.2.2
   praxis_flutter_domain:
     path: ../praxis_flutter_domain
+  get_it: ^7.2.0
 
 
 dev_dependencies:
