@@ -37,6 +37,64 @@ jobs:
           groups: developers
           file: build/app/outputs/flutter-apk/app-release.apk
 
+  build_ios:
+    name: Build iOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: Install iOS Gems
+        working-directory: ${{ github.workspace }}/ios
+        run: bundle install
+
+      - name: Install iOS Certificate and Profile
+        working-directory: ${{ github.workspace }}/ios
+        run: bundle exec fastlane install_certificate_and_profile
+        env:
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+          APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_KEY_CONTENT }}
+          TEMP_KEYCHAIN_USER: ${{ secrets.TEMP_KEYCHAIN_USER }}
+          TEMP_KEYCHAIN_PASSWORD: ${{ secrets.TEMP_KEYCHAIN_PASSWORD }}
+          GIT_AUTHORIZATION: ${{ secrets.GIT_AUTHORIZATION }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+      - name: Set Xcode version
+        working-directory: ${{ github.workspace }}/ios
+        run: bundle exec fastlane set_xcode_version
+
+      - name: Build IPA
+        working-directory: ${{ github.workspace }}
+        run: flutter build ipa --export-options-plist=$GITHUB_WORKSPACE/ios/exportOptions.plist
+
+      - name: Print iPA Folder
+        working-directory: ${{ github.workspace }}/build/ios/ipa
+        run: ls *.ipa
+
+      - name: Distribute iOS Beta App
+        working-directory: ${{ github.workspace }}/ios
+        run: bundle exec fastlane distribute_ios_app
+        env:
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          IOS_TESTERS: ${{ secrets.IOS_TESTERS }}
+
   # This workflow contains a single job called "build"
   build_deploy_web:
     runs-on: ubuntu-latest
