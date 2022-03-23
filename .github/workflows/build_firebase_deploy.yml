@@ -20,7 +20,7 @@ jobs:
         run: |
           echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
           cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-          shell: bash
+        shell: bash
         env:
           FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
       - uses: actions/setup-java@v1
@@ -55,7 +55,7 @@ jobs:
         run: |
           echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
           cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-          shell: bash
+        shell: bash
         env:
           FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
       - uses: actions/setup-java@v1
