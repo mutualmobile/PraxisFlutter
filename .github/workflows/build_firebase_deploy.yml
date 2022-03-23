@@ -17,8 +17,8 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - name: Create Firebase options from secrets
         run: |
-          echo FIREBASE_OPTIONS >> lib/firebase_options.dart
           cat lib/firebase_options.dart
+          echo FIREBASE_OPTIONS >> lib/firebase_options.dart
         shell: bash
         env:
           FIREBASE_OPTIONS : ${{secrets.FIREBASE_OPTIONS}}
@@ -52,8 +52,8 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - name: Create Firebase options from secrets
         run: |
-          echo FIREBASE_OPTIONS >> lib/firebase_options.dart
           cat lib/firebase_options.dart
+          echo FIREBASE_OPTIONS >> lib/firebase_options.dart
         shell: bash
         env:
           FIREBASE_OPTIONS : ${{secrets.FIREBASE_OPTIONS}}
