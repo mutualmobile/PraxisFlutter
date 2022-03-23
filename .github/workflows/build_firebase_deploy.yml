@@ -18,12 +18,11 @@ jobs:
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
         run: |
-          touch /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
+          echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
+          cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
           shell: bash
-      - uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: lib/firebase_options.dart
-          FILE_DATA: ${{secrets.FIREBASE_OPTIONS}}
+          FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -54,12 +53,11 @@ jobs:
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
         run: |
-          touch /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
+          echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
+          cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
           shell: bash
-      - uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: lib/firebase_options.dart
-          FILE_DATA: ${{secrets.FIREBASE_OPTIONS}}
+          FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
