@@ -17,12 +17,12 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
-        run: |
-          echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-          cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-        shell: bash
-        env:
-          FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
+        id: write_file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'firebase_options.dart'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -50,12 +50,12 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
-        run: |
-          echo FIREBASE_OPTIONS >> /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-          cat /home/runner/work/PraxisFlutter/PraxisFlutter/lib/firebase_options.dart
-        shell: bash
-        env:
-          FIREBASE_OPTIONS: ${{secrets.FIREBASE_OPTIONS}}
+        id: write_file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'firebase_options.dart'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
