@@ -1,6 +1,4 @@
-abstract class EntityMapper<DomainModel, DataModel> {
-  DomainModel mapToDomain(DataModel entity);
-  DataModel mapToData(DomainModel model);
+abstract class EntityMapper<Domain, Data> {
+  Domain mapToDomain(Data entity);
+  Data mapToData(Domain model);
 }
-
-class DataModel {}

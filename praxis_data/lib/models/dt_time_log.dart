@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:praxis_data/mapper/entity_mapper.dart';
 
-class DTTimeLog extends DataModel{
+class DTTimeLog {
   DateTime startTime;
   DateTime endTime;
   String projectId;

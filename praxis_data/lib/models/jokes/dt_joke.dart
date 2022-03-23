@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:praxis_data/mapper/entity_mapper.dart';
-
-class DTJoke extends DataModel {
+class DTJoke  {
   final int id;
   final String joke;
 

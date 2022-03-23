@@ -1,7 +1,7 @@
 import 'package:praxis_data/mapper/entity_mapper.dart';
 import 'package:praxis_data/models/jokes/dt_joke.dart';
 
-class DTJokeList extends DataModel {
+class DTJokeList  {
   final String type;
   final List<DTJoke> jokeList;
 

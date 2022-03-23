@@ -1,6 +1,6 @@
 import 'package:praxis_flutter_domain/mapper/ui_model_mapper.dart';
 
-class DMTimeLog extends DomainModel {
+class DMTimeLog {
   DateTime startTime;
   DateTime endTime;
   String projectId;
