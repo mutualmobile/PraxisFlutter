@@ -31,8 +31,6 @@ jobs:
           channel: 'stable'
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: 'Run Test(s)'
-        run: flutter test
       - name: 'Build Android Apk'
         run: flutter clean && flutter build apk --release
       - name: Firebase App Distribution
@@ -66,8 +64,6 @@ jobs:
           channel: 'stable'
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: 'Run Test(s)'
-        run: flutter test
       - name: Enable flutter web
         run: flutter config --enable-web
       - name: 'Build Web App'
