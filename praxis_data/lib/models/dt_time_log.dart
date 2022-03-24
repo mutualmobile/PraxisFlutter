@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:praxis_data/mapper/entity_mapper.dart';
+import 'package:equatable/equatable.dart';
 
-class DTTimeLog {
+class DTTimeLog extends Equatable{
   DateTime startTime;
   DateTime endTime;
   String projectId;
@@ -15,11 +15,16 @@ class DTTimeLog {
     return {"startTime": startTime, "endTime": endTime, "projectId": projectId,"hours":hours};
   }
 
-  static DTTimeLog fromJson(
-      DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
+  factory DTTimeLog.fromJson(DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     return DTTimeLog(startTime: documentSnapshot['startTime'],
         endTime: documentSnapshot['endTime'],
         hours: documentSnapshot['hours'],
         projectId: documentSnapshot['projectId']);
   }
+
+  @override
+  List<Object> get props => [DTTimeLog(startTime: startTime,
+      endTime: endTime,
+      hours: hours,
+      projectId: projectId)];
 }

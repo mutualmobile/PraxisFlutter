@@ -1,17 +1,20 @@
-import 'package:praxis_data/mapper/entity_mapper.dart';
 import 'package:praxis_data/models/jokes/dt_joke.dart';
+import 'package:equatable/equatable.dart';
 
-class DTJokeList  {
+class DTJokeList extends Equatable {
   final String type;
   final List<DTJoke> jokeList;
 
-  DTJokeList(this.type, this.jokeList);
+  const DTJokeList(this.type, this.jokeList);
 
-  DTJokeList.fromJson(Map<String, dynamic> map)
-      : type = map['type'],
-        jokeList = List<DTJoke>.from((map['value'].cast<Map<String, dynamic>>())
-            .toList()
-            .map((map) => DTJoke.fromJson(map)));
+  factory DTJokeList.fromJson(Map<String, dynamic> map) {
+    return DTJokeList(map['type'], List<DTJoke>.from((map['value'])
+        .toList()
+        .map((map) => DTJoke.fromJson(map))));
+  }
+
+  @override
+  List<Object> get props => [DTJokeList(type,jokeList)];
 
   @override
   String toString() {
