@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mutualmobile.praxis_flutter">
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
    <application
        android:name="androidx.multidex.MultiDexApplication"
         android:label="praxis_flutter"
