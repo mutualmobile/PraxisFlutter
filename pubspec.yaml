@@ -36,6 +36,7 @@ dependencies:
   firebase_in_app_messaging: ^0.6.0+9
   firebase_app_installations: ^0.1.0+8
   google_sign_in: ^5.2.4
+  flutter_local_notifications: ^9.4.0
   praxis_flutter_domain:
     path: ./praxis_flutter_domain
   praxis_data:
