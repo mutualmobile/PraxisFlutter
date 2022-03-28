@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/application/platform_app.dart';
 import 'package:praxis_flutter/firebase_options.dart'; // not committed to git!
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'application/notifications/localNotifications/local_notification_helper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,4 +20,5 @@ void setupFirebaseServices() async {
   );
   final FirebaseFirestore firestore =
       FirebaseFirestore.instanceFor(app: firebaseApp);
+  initialiseLocalNotifications();
 }
