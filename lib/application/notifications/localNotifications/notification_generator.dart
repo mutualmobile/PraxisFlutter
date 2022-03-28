@@ -7,7 +7,8 @@ import 'package:timezone/timezone.dart' as tz;
 
 import 'local_notification_helper.dart';
 
-var androidDetails = AndroidNotificationDetailsMapper().getAndroidNotificationDetails();
+var androidDetails =
+    AndroidNotificationDetailsMapper().getAndroidNotificationDetails();
 var iOSDetails = const IOSNotificationDetails();
 
 Future<void> showSimpleNotification() async {
@@ -21,12 +22,15 @@ Future<void> showSimpleNotification() async {
 /// Schedule notification after certain amount of time
 Future<void> showScheduleNotification() async {
   tz.initializeTimeZones();
-  var scheduledNotificationDateTime = tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5));
+  var scheduledNotificationDateTime =
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5));
   var androidDetails = AndroidNotificationDetailsMapper()
       .getAndroidNotificationDetails(
           icon: '@drawable/ic_flutter',
-          largeIcon: const DrawableResourceAndroidBitmap('@drawable/big_notification'));
-  final platformDetails = NotificationDetails(android: androidDetails, iOS: iOSDetails);
+          largeIcon: const DrawableResourceAndroidBitmap(
+              '@drawable/big_notification'));
+  final platformDetails =
+      NotificationDetails(android: androidDetails, iOS: iOSDetails);
   await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
       "Flutter Local Notification",
@@ -41,13 +45,13 @@ Future<void> showScheduleNotification() async {
 
 /// Schedule notification after certain amount of time periodically using periodicallyShow method.
 Future<void> showPeriodicNotification() async {
-  final notificationDetails = NotificationDetails(android: androidDetails);
+  final platformDetails = NotificationDetails(android: androidDetails);
   await flutterLocalNotificationsPlugin.periodicallyShow(
       0,
       "Flutter Local Notification",
       "Flutter Periodic Notification",
       RepeatInterval.everyMinute,
-      notificationDetails,
+      platformDetails,
       payload: 'Destination Screen (Simple Notification)');
 }
 
@@ -60,7 +64,8 @@ Future<void> showBigPictureNotification() async {
     summaryText: "Flutter Big Picture Notification Summary Text",
   );
   var androidDetails = AndroidNotificationDetailsMapper()
-      .getAndroidNotificationDetails(styleInformation: bigPictureStyleInformation);
+      .getAndroidNotificationDetails(
+          styleInformation: bigPictureStyleInformation);
   final platformDetails = NotificationDetails(android: androidDetails);
   await flutterLocalNotificationsPlugin.show(0, "Flutter Local Notification",
       "Flutter Big Picture Notification", platformDetails,
@@ -91,9 +96,8 @@ Future<void> showInsistentNotification() async {
 
   var androidDetails = AndroidNotificationDetailsMapper()
       .getAndroidNotificationDetails(
-      ticker: 'ticker',
-      additionalFlags: Int32List.fromList(<int>[insistentFlag])
-      );
+          ticker: 'ticker',
+          additionalFlags: Int32List.fromList(<int>[insistentFlag]));
   final platformDetails = NotificationDetails(android: androidDetails);
   await flutterLocalNotificationsPlugin.show(0, 'Flutter Local Notification',
       'Flutter Insistent Notification', platformDetails,
@@ -104,7 +108,7 @@ Future<void> showInsistentNotification() async {
 Future<void> showOngoingNotification() async {
   final androidDetails = AndroidNotificationDetailsMapper()
       .getAndroidNotificationDetails(ongoing: true, autoCancel: false);
-  var  platformDetails = NotificationDetails(android: androidDetails);
+  var platformDetails = NotificationDetails(android: androidDetails);
   await flutterLocalNotificationsPlugin.show(0, 'Flutter Local Notification',
       'Flutter Ongoing Notification', platformDetails,
       payload: 'Destination Screen(Ongoing Notification)');
@@ -117,15 +121,14 @@ Future<void> showProgressNotification() async {
     await Future<void>.delayed(const Duration(seconds: 1), () async {
       final androidDetails = AndroidNotificationDetailsMapper()
           .getAndroidNotificationDetails(
-          channelShowBadge: false,
-          importance: Importance.max,
-          priority: Priority.high,
-          onlyAlertOnce: true,
-          showProgress: true,
-          maxProgress: maxProgress,
-          progress: progress
-      );
-      var  platformDetails = NotificationDetails(android: androidDetails);
+              channelShowBadge: false,
+              importance: Importance.max,
+              priority: Priority.high,
+              onlyAlertOnce: true,
+              showProgress: true,
+              maxProgress: maxProgress,
+              progress: progress);
+      var platformDetails = NotificationDetails(android: androidDetails);
       await flutterLocalNotificationsPlugin.show(
           0,
           'Flutter Local Notification',
