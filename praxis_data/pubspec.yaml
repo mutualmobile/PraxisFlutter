@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_clean_architecture: ^5.0.2
-  logging: ^1.0.2
+  logger: ^1.1.0
   dio: ^4.0.4
   shared_preferences: ^2.0.13
   equatable: ^2.0.3
