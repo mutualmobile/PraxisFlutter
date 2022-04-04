@@ -1,4 +1,4 @@
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_jokes_mapper.dart';
 import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
@@ -13,7 +13,7 @@ class HomePresenter extends Presenter {
   HomePresenter(jokesRepo)
       : getFiveRandomJokesUseCase = GetFiveRandomJokesUseCase(jokesRepo);
 
-  void getJokeList() {
+  void getJokeList(Function) {
     getFiveRandomJokesUseCase.execute(_GetJokeListUseCaseObserver(this));
   }
 

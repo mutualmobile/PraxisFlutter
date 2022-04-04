@@ -1,33 +1,22 @@
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:go_router/go_router.dart';
-import 'package:praxis_flutter/features/home/home_presenter.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
+import 'package:praxis_flutter/ui/model/jokes/ui_jokes_mapper.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
+import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
 
-class HomeController extends Controller {
+class HomeVM extends ViewModel {
   bool showProgress = false;
+  var mapper = UIJokeMapper();
+  late GetFiveRandomJokesUseCase getFiveRandomJokesUseCase;
 
-  final HomePresenter homePresenter;
-
-  HomeController(jokesRepo) : homePresenter = HomePresenter(jokesRepo);
-
-  @override
-  void initListeners() {
-    homePresenter.getJokeListOnNext = (UIJokeList jokeList) {
-      changeProgressbarVisibility(false);
-      jokeScreen(jokeList);
-    };
-    homePresenter.getJokeListOnComplete = () {};
-
-    homePresenter.getJokeListOnError = (e) {
-      logger.severe(e);
-    };
-  }
+  HomeVM(jokesRepo)
+      : getFiveRandomJokesUseCase = GetFiveRandomJokesUseCase(jokesRepo);
 
   void fetchJokeList() {
     changeProgressbarVisibility(true);
-    homePresenter.getJokeList();
+    getFiveRandomJokesUseCase.perform(handleResponse, error, complete);
   }
 
   void jokeScreen(UIJokeList jokeList) {
@@ -37,5 +26,29 @@ class HomeController extends Controller {
   void changeProgressbarVisibility(bool visibility) {
     showProgress = visibility;
     refreshUI();
+  }
+
+  @override
+  void didPop() {
+    getFiveRandomJokesUseCase.dispose();
+    super.didPop();
+  }
+
+  void handleResponse(GetJokeListUseCaseResponse? response) {
+    changeProgressbarVisibility(false);
+    var jokes = response?.jokeList ?? DMJokeList("EmptyList", []);
+    jokeScreen(mapper.mapToPresentation(jokes));
+  }
+
+  void complete() {
+    changeProgressbarVisibility(false);
+  }
+
+  error(e) {
+    logger.info(e);
+  }
+
+  @override
+  void initListeners() {
   }
 }

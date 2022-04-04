@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';

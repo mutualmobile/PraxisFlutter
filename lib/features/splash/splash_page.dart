@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
@@ -14,8 +14,8 @@ class SplashScreen extends View {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ViewState<SplashScreen, SplashController> {
-  _SplashScreenState() : super(SplashController());
+class _SplashScreenState extends ViewState<SplashScreen, SplashVM> {
+  _SplashScreenState() : super(SplashVM());
 
   @override
   Widget get view => PraxisScaffold(
@@ -28,7 +28,7 @@ class _SplashScreenState extends ViewState<SplashScreen, SplashController> {
             const FlutterLogo(
               size: 160,
             ),
-            ControlledWidgetBuilder<SplashController>(
+            ControlledWidgetBuilder<SplashVM>(
                 builder: (context, controller) {
               return PraxisButton(
                 title:

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
@@ -17,8 +17,8 @@ class HomePage extends View {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController(DataJokesRepository(JokesListMapper(JokeMapper()))));
+class _HomePageState extends ViewState<HomePage, HomeVM> {
+  _HomePageState() : super(HomeVM(DataJokesRepository(JokesListMapper(JokeMapper()))));
 
   @override
   Widget get view {
@@ -37,8 +37,8 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         ));
   }
 
-  ControlledWidgetBuilder<HomeController> aboutWidget() {
-    return ControlledWidgetBuilder<HomeController>(
+  ControlledWidgetBuilder<HomeVM> aboutWidget() {
+    return ControlledWidgetBuilder<HomeVM>(
         builder: (context, controller) {
       return PraxisButton(
           title: "About",
@@ -61,8 +61,8 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
     );
   }
 
-  ControlledWidgetBuilder<HomeController> progressIndicator() {
-    return ControlledWidgetBuilder<HomeController>(
+  ControlledWidgetBuilder<HomeVM> progressIndicator() {
+    return ControlledWidgetBuilder<HomeVM>(
         builder: (context, controller) {
       if (controller.showProgress) {
         return const PraxisProgressBar();

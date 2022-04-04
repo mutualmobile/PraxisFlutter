@@ -1,6 +1,6 @@
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 
-class SplashController extends Controller {
+class SplashVM extends ViewModel {
   bool pressed = false;
 
   @override
