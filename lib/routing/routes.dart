@@ -22,9 +22,7 @@ final praxisRoutes = GoRouter(
 jokeListRoutePage() {
   return GoRoute(
     path: jokeListRoute,
-    builder: (context, state) => JokeListPage(
-      jokeList: state.extra! as UIJokeList,
-    ),
+    builder: (context, state) => JokeListPage(),
   );
 }
 

@@ -8,11 +8,9 @@ import 'package:praxis_flutter/routing/routes.dart';
 
 class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   /// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
-  const PraxisApp({
-    Key? key,
-  }) : super(key: key);
+  final String title;
 
-  static const String title = 'Praxis';
+  const PraxisApp({Key? key, this.title = 'Praxis'}) : super(key: key);
 
   @override
   CupertinoApp buildCupertino(BuildContext context) {
@@ -27,8 +25,7 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
 
   @override
   MaterialApp buildMaterial(BuildContext context) {
-    var lightTheme =
-        FlexColorScheme.light(scheme: FlexScheme.amber).toTheme;
+    var lightTheme = FlexColorScheme.light(scheme: FlexScheme.amber).toTheme;
     var darkTheme = FlexColorScheme.dark(scheme: FlexScheme.amber).toTheme;
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:clean_architecture/clean_architecture.dart';
 import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
-import 'home_controller.dart';
+import 'package:praxis_flutter/features/home/home_vm.dart';
+import 'package:praxis_flutter/routing/routes.dart';
 
 class HomePage extends View {
   HomePage({Key? key}) : super(key: key);
@@ -17,8 +18,8 @@ class HomePage extends View {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController(DataJokesRepository(JokesListMapper(JokeMapper()))));
+class _HomePageState extends ViewState<HomePage, HomeVM> {
+  _HomePageState() : super(HomeVM());
 
   @override
   Widget get view {
@@ -33,12 +34,12 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [heading().paddingAll(4), progressIndicator().paddingAll(4), aboutWidget().paddingAll(4)],
+          children: [heading().paddingAll(4), showRandomJokes().paddingAll(4), aboutWidget().paddingAll(4)],
         ));
   }
 
-  ControlledWidgetBuilder<HomeController> aboutWidget() {
-    return ControlledWidgetBuilder<HomeController>(
+  ControlledWidgetBuilder<HomeVM> aboutWidget() {
+    return ControlledWidgetBuilder<HomeVM>(
         builder: (context, controller) {
       return PraxisButton(
           title: "About",
@@ -61,20 +62,17 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
     );
   }
 
-  ControlledWidgetBuilder<HomeController> progressIndicator() {
-    return ControlledWidgetBuilder<HomeController>(
-        builder: (context, controller) {
-      if (controller.showProgress) {
-        return const PraxisProgressBar();
-      } else {
-        return PraxisButton(
-            title: "Show 5 random Jokes",
-            onPressed: () {
-              controller.fetchJokeList();
-            });
-      }
-    });
-  }
-
   Text appBarTitle() => const Text("Praxis");
+
+  ControlledWidgetBuilder<HomeVM> showRandomJokes() {
+    return ControlledWidgetBuilder<HomeVM>(
+        builder: (context, controller) {
+          return  PraxisButton(
+              title: "Show 5 random Jokes",
+              onPressed: () {
+                controller.navigateJokes();
+              });
+        });
+
+  }
 }
