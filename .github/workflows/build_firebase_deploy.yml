@@ -16,7 +16,7 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
-        id: write_file
+        id: write_FIREBASE_OPTIONSIos
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'firebase_options.dart'
@@ -47,7 +47,7 @@ jobs:
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
       - name: Create Firebase options from secrets
-        id: write_file
+        id: write_FIREBASE_OPTIONSAndroid
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'firebase_options.dart'
