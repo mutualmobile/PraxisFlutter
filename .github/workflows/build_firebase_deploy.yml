@@ -29,21 +29,6 @@ jobs:
           fileName: 'GoogleService-Info.plist'
           fileDir: '/home/runner/work/PraxisFlutter/ios/'
           encodedString: ${{ secrets.GoogleServiceInfo }}
-      - name: Install Apple Certificate
-        uses: apple-actions/import-codesign-certs@v1
-        with:
-          p12-file-base64: ${{ secrets.P12_BASE64 }}
-          p12-password: ${{ secrets.P12_PASSWORD }}
-      - name: Install the provisioning profile
-        env:
-          PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
-        run: |
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-
-          echo -n "$PROVISIONING_CERTIFICATE_BASE64" | base64 --decode --output $PP_PATH
-
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
