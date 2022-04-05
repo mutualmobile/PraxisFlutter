@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:clean_architecture/clean_architecture.dart';
 import 'package:flutter/material.dart';
+import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
+import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
+import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:praxis_flutter/features/joke_list/joke_list_controller.dart';
-import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
+import 'package:praxis_flutter/features/joke_list/joke_list_vm.dart';
 
 class JokeListPage extends View {
-  final UIJokeList jokeList;
-
-  JokeListPage({Key? key, required this.jokeList}) : super(key: key);
+  JokeListPage({Key? key}) : super(key: key);
 
   @override
-  _JokeListPageState createState() => _JokeListPageState(jokeList);
+  _JokeListPageState createState() => _JokeListPageState();
 }
 
-class _JokeListPageState extends ViewState<JokeListPage, JokeListController> {
-  _JokeListPageState(jokeList) : super(JokeListController(jokeList));
+class _JokeListPageState extends ViewState<JokeListPage, JokeListVM> {
+  _JokeListPageState()
+      : super(JokeListVM(DataJokesRepository(JokesListMapper(JokeMapper()))));
 
   @override
   Widget get view {
@@ -28,16 +29,20 @@ class _JokeListPageState extends ViewState<JokeListPage, JokeListController> {
         iosNavBar: CupertinoNavigationBar(
           middle: text(),
         ),
-        body: ControlledWidgetBuilder<JokeListController>(
-          builder: (context, controller) {
-            return ListView.builder(
-                itemCount: controller.jokeList.jokes.length,
-                itemBuilder: (context, index) {
-                  return Text(controller.jokeList.jokes[index].joke)
-                      .paddingAll(8);
-                });
-          },
-        ));
+        body:
+            ControlledWidgetBuilder<JokeListVM>(builder: (context, controller) {
+          return Stack(
+            children: [
+              ListView.builder(
+                  itemCount: controller.jokesList.jokes.length,
+                  itemBuilder: (context, index) {
+                    return Text(controller.jokesList.jokes[index].joke)
+                        .paddingAll(8);
+                  }),
+              controller.showProgress ? const PraxisProgressBar() : Container()
+            ],
+          );
+        }));
   }
 
   Text text() => const Text("Praxis");

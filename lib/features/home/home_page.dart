@@ -8,7 +8,8 @@ import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
-import 'home_controller.dart';
+import 'package:praxis_flutter/features/home/home_vm.dart';
+import 'package:praxis_flutter/routing/routes.dart';
 
 class HomePage extends View {
   HomePage({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class HomePage extends View {
 }
 
 class _HomePageState extends ViewState<HomePage, HomeVM> {
-  _HomePageState() : super(HomeVM(DataJokesRepository(JokesListMapper(JokeMapper()))));
+  _HomePageState() : super(HomeVM());
 
   @override
   Widget get view {
@@ -33,7 +34,7 @@ class _HomePageState extends ViewState<HomePage, HomeVM> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [heading().paddingAll(4), progressIndicator().paddingAll(4), aboutWidget().paddingAll(4)],
+          children: [heading().paddingAll(4), showRandomJokes().paddingAll(4), aboutWidget().paddingAll(4)],
         ));
   }
 
@@ -61,20 +62,17 @@ class _HomePageState extends ViewState<HomePage, HomeVM> {
     );
   }
 
-  ControlledWidgetBuilder<HomeVM> progressIndicator() {
+  Text appBarTitle() => const Text("Praxis");
+
+  ControlledWidgetBuilder<HomeVM> showRandomJokes() {
     return ControlledWidgetBuilder<HomeVM>(
         builder: (context, controller) {
-      if (controller.showProgress) {
-        return const PraxisProgressBar();
-      } else {
-        return PraxisButton(
-            title: "Show 5 random Jokes",
-            onPressed: () {
-              controller.fetchJokeList();
-            });
-      }
-    });
-  }
+          return  PraxisButton(
+              title: "Show 5 random Jokes",
+              onPressed: () {
+                controller.navigateJokes();
+              });
+        });
 
-  Text appBarTitle() => const Text("Praxis");
+  }
 }
