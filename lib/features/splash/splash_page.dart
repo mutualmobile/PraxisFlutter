@@ -4,7 +4,7 @@ import 'package:clean_architecture/clean_architecture.dart';
 import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/application/widgets/platform_button.dart';
 import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-import 'package:praxis_flutter/features/splash/splash_controller.dart';
+import 'package:praxis_flutter/features/splash/splash_vm.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 
 class SplashScreen extends View {
