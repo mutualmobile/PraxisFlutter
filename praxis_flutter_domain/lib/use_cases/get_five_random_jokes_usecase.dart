@@ -6,6 +6,7 @@ import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
 class GetFiveRandomJokesUseCase extends UseCase<GetJokeListUseCaseResponse, void> {
 
   final JokesRepository jokesRepository;
+
   GetFiveRandomJokesUseCase(this.jokesRepository);
 
   @override

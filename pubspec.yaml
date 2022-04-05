@@ -39,6 +39,8 @@ dependencies:
     path: ./praxis_flutter_domain
   praxis_data:
     path: ./praxis_data
+  flutter_local_notifications: ^9.4.0
+  permission_handler: ^9.2.0
 
 
 dev_dependencies:
