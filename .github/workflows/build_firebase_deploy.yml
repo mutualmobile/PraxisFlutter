@@ -121,7 +121,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: apk-build
+          name: appbundle-build
       - name: Upload APK
         uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
         with:
