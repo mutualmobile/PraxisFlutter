@@ -88,11 +88,11 @@ jobs:
       - name: 'Build iOS'
         run: flutter clean && flutter build ios --release --no-codesign
       - name: Build resolve Swift dependencies
-        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }}
+        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme ${{ secrets.SCHEME }} -configuration ${{ secrets.BUILD_CONFIGURATION }}
 
       - name: Build xArchive
         run: |
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }} DEVELOPMENT_TEAM=${{ env.TEAM_ID }} -sdk 'iphoneos' -destination 'generic/platform=iOS' -archivePath build-output/app.xcarchive PROVISIONING_PROFILE=a1840148-e2e4-41fd-8b94-f29e5d6bb6db clean archive CODE_SIGN_IDENTITY="iPhone Distribution: Mutual Mobile"
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme ${{ secrets.SCHEME }} -configuration ${{ secrets.BUILD_CONFIGURATION }} DEVELOPMENT_TEAM=${{ secrets.TEAM_ID }} -sdk 'iphoneos' -destination 'generic/platform=iOS' -archivePath build-output/app.xcarchive PROVISIONING_PROFILE=a1840148-e2e4-41fd-8b94-f29e5d6bb6db clean archive CODE_SIGN_IDENTITY="iPhone Distribution: Mutual Mobile"
       - name: Export ipa
         run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportPath build-output/ios -exportOptionsPlist ios/ExportOptions.plist
 
