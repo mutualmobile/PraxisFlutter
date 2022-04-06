@@ -127,20 +127,20 @@ abstract class ResponsiveViewState<Page extends View, VM extends ViewModel>
 ///     }
 ///
 /// ```
-abstract class ViewState<Page extends View, Con extends ViewModel>
+abstract class ViewState<Page extends View, VM extends ViewModel>
     extends State<Page> {
   final GlobalKey<State<StatefulWidget>> globalKey =
       GlobalKey<State<StatefulWidget>>();
-  final Con _controller;
+  final VM _viewModel;
   late Logger _logger;
   late ViewBuilder builder;
 
   /// Implement the [Widget] you want to be displayed on [View]
   Widget get view;
 
-  ViewState(this._controller) {
-    _controller.initController(globalKey);
-    WidgetsBinding.instance!.addObserver(_controller);
+  ViewState(this._viewModel) {
+    _viewModel.initViewModel(globalKey);
+    WidgetsBinding.instance!.addObserver(_viewModel);
     _logger = Logger('$runtimeType');
   }
 
@@ -149,11 +149,11 @@ abstract class ViewState<Page extends View, Con extends ViewModel>
   void didChangeDependencies() {
     if (widget.routeObserver != null) {
       _logger.info('$runtimeType is observing route events.');
-      widget.routeObserver!.subscribe(_controller, ModalRoute.of(context)!);
+      widget.routeObserver!.subscribe(_viewModel, ModalRoute.of(context)!);
     }
 
     _logger.info('didChangeDependencies triggered on $runtimeType');
-    _controller.onDidChangeDependencies();
+    _viewModel.onDidChangeDependencies();
     super.didChangeDependencies();
   }
 
@@ -161,14 +161,14 @@ abstract class ViewState<Page extends View, Con extends ViewModel>
   @nonVirtual
   void initState() {
     _logger.info('Initializing state of $runtimeType');
-    _controller.onInitState();
+    _viewModel.onInitState();
     super.initState();
   }
 
   @override
   @nonVirtual
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Con>.value(value: _controller, child: view);
+    return ChangeNotifierProvider<VM>.value(value: _viewModel, child: view);
   }
 
   @override
@@ -176,7 +176,7 @@ abstract class ViewState<Page extends View, Con extends ViewModel>
   void deactivate() {
     _logger.info(
         'Deactivating $runtimeType. (This is usually called right before dispose)');
-    _controller.onDeactivated();
+    _viewModel.onDeactivated();
     super.deactivate();
   }
 
@@ -184,7 +184,7 @@ abstract class ViewState<Page extends View, Con extends ViewModel>
   @mustCallSuper
   void reassemble() {
     _logger.info('Reassembling $runtimeType.');
-    _controller.onReassembled();
+    _viewModel.onReassembled();
     super.reassemble();
   }
 
@@ -192,7 +192,7 @@ abstract class ViewState<Page extends View, Con extends ViewModel>
   @mustCallSuper
   void dispose() {
     _logger.info('Disposing $runtimeType.');
-    _controller.onDisposed();
+    _viewModel.onDisposed();
     super.dispose();
   }
 }

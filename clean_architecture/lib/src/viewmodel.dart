@@ -166,7 +166,7 @@ abstract class ViewModel
 
   /// Initializes optional [ViewModel] variables that can be used for _refreshing and error displaying.
   /// This method is called automatically by the mounted `View`. Do not call.
-  void initController(GlobalKey<State<StatefulWidget>> key) {
+  void initViewModel(GlobalKey<State<StatefulWidget>> key) {
     _globalKey = key;
   }
 

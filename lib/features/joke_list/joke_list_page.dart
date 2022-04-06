@@ -34,6 +34,7 @@ class _JokeListPageState extends ViewState<JokeListPage, JokeListVM> {
         body:
             ControlledWidgetBuilder<JokeListVM>(builder: (context, controller) {
           return Stack(
+            alignment: Alignment.center,
             children: [
               ListView.builder(
                   itemCount: controller.jokesList.jokes.length,
