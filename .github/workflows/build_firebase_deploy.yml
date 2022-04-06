@@ -103,6 +103,7 @@ jobs:
 
   build_deploy_web:
     runs-on: ubuntu-latest
+
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
