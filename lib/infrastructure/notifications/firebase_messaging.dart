@@ -32,18 +32,18 @@ class PraxisFirebaseMessaging {
   void setupMessaging() async {
     setupLocalNotifications();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-    await notificationSettings();
+    await iosNotificationPermissions();
     listenForMessages();
   }
 
-  Future<void> notificationSettings() async {
+  Future<void> iosNotificationPermissions() async {
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
       carPlay: false,
       criticalAlert: false,
-      provisional: true,
+      provisional: false,
       sound: true,
     );
 
