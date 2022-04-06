@@ -48,11 +48,11 @@ class PraxisFirebaseMessaging {
     );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
       whenMessagingAuthorized();
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       messagingLogger.fine('User granted provisional permission');
+      whenMessagingAuthorized(); // TODO how do we handle this ?
     } else {
       messagingLogger.fine('User declined or has not accepted permission');
     }
