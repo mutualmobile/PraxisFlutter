@@ -71,7 +71,7 @@ jobs:
           PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
         run: |
           # create variables
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          PP_PATH=$RUNNER_TEMP/FlutterPraxisRelease.mobileprovision
           # import provisioning profile from secrets
           echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode --output $PP_PATH
           # apply provisioning profile
@@ -92,7 +92,7 @@ jobs:
 
       - name: Build xArchive
         run: |
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build-output/app.xcarchive
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build-output/app.xcarchive PROVISIONING_PROFILE_SPECIFIER=a1840148-e2e4-41fd-8b94-f29e5d6bb6db
       - name: Export ipa
         run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath build-output/ios
 
