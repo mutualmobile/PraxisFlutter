@@ -24,16 +24,17 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: ios-build
+          name: release-ios
       - name: Upload IPA
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
           appId: ${{secrets.FIREBASE_IOS_APPID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: Runner.app
+          file: Runner.ipa
   build_ios:
     runs-on: macos-latest
+    if: "contains(github.event.head_commit.message, 'build_ios')"
 
     steps:
       - name: Export Release Timestamp
@@ -46,6 +47,13 @@ jobs:
           fileName: 'firebase_options.dart'
           fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+      - name: Create ExportOptions.plist from secrets
+        id: write_fileExportOptions.plist
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'ExportOptions.plist'
+          fileDir: '/Users/runner/work/PraxisFlutter/ios/'
+          encodedString: ${{ secrets.ExportOptions }}
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
@@ -53,6 +61,22 @@ jobs:
           fileName: 'GoogleService-Info.plist'
           fileDir: '/Users/runner/work/PraxisFlutter/ios/'
           encodedString: ${{ secrets.GoogleServiceInfo }}
+      - name: Install Apple Certificate
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.P12_BASE64 }}
+          p12-password: ${{ secrets.P12_PASSWORD }}
+      - name: Install the provisioning profile
+        env:
+          PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+        run: |
+          # create variables
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          # import provisioning profile from secrets
+          echo -n "$PROVISIONING_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -63,15 +87,24 @@ jobs:
         run: flutter pub get
       - name: 'Build iOS'
         run: flutter clean && flutter build ios --release --no-codesign
+      - name: Build resolve Swift dependencies
+        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }}
+
+      - name: Build xArchive
+        run: |
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme ${{ env.SCHEME }} -configuration ${{ env.BUILD_CONFIGURATION }} DEVELOPMENT_TEAM=${{ env.TEAM_ID }} -sdk 'iphoneos' -destination 'generic/platform=iOS' -archivePath build-output/app.xcarchive PROVISIONING_PROFILE=a1840148-e2e4-41fd-8b94-f29e5d6bb6db clean archive CODE_SIGN_IDENTITY="iPhone Distribution: Mutual Mobile"
+      - name: Export ipa
+        run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportPath build-output/ios -exportOptionsPlist ios/ExportOptions.plist
+
       - name: Upload iPA
         uses: actions/upload-artifact@master
         with:
-          name: ios-build
-          path: build/ios/iphoneos
+          name: release-ios
+          path: build-output/ios
 
   build_deploy_web:
     runs-on: ubuntu-latest
-
+    if: "contains(github.event.head_commit.message, 'build_deploy_web')"
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
@@ -131,6 +164,7 @@ jobs:
           file: app-release.aab
   build_android:
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'build_android')"
 
     steps:
       - name: Export Release Timestamp
