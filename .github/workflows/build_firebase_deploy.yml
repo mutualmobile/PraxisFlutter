@@ -44,14 +44,14 @@ jobs:
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          fileDir: '~/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'GoogleService-Info.plist'
-          fileDir: '/home/runner/work/PraxisFlutter/ios/'
+          fileDir: '~/work/PraxisFlutter/ios/'
           encodedString: ${{ secrets.GoogleServiceInfo }}
       - uses: actions/setup-java@v1
         with:
@@ -81,7 +81,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          fileDir: '~/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
@@ -125,7 +125,7 @@ jobs:
       - name: Upload APK
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
-          appId: ${{secrets.FIREBASE_APPID}}
+          appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
           file: app-release.aab
@@ -141,7 +141,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          fileDir: '~/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
