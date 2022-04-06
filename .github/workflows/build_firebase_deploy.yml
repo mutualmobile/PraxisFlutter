@@ -31,7 +31,7 @@ jobs:
           appId: ${{secrets.FIREBASE_IOS_APPID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: Runner.ipa
+          file: praxis_flutter.ipa
   build_ios:
     runs-on: macos-latest
     if: "contains(github.event.head_commit.message, 'build_ios')"
