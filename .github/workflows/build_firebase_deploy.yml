@@ -26,11 +26,11 @@ jobs:
         with:
           name: ios-build
       - name: Upload IPA
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
           appId: ${{secrets.FIREBASE_IOS_APPID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          group: testers
+          groups: testers
           file: Runner.ipa
   build_ios:
     runs-on: macos-latest
@@ -123,11 +123,11 @@ jobs:
         with:
           name: appbundle-build
       - name: Upload APK
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
           appId: ${{secrets.FIREBASE_APPID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          group: testers
+          groups: testers
           file: app-release.aab
   build_android:
     runs-on: ubuntu-latest
