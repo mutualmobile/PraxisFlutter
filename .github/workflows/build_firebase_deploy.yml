@@ -4,11 +4,35 @@ name: Build,Test Release app to Firebase Hosting
 on:
   push:
     branches:
-      - master
+      - main
+  pull_request:
+    branches:
+      - main
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_apps:
+  beta_ios:
+    name: Upload iOS Beta to Firebase App Distribution
+    needs: [ build_ios ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: ios-build
+      - name: Upload IPA
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
+        with:
+          appId: ${{secrets.FIREBASE_IOS_APPID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          group: testers
+          file: Runner.ipa
+  build_ios:
     runs-on: macos-latest
 
     steps:
@@ -38,44 +62,99 @@ jobs:
       - name: 'Run flutter pub get'
         run: flutter pub get
       - name: 'Build iOS'
-        run: flutter build ios --release --no-codesign
-      - name: Build resolve Swift dependencies
-        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release
-      - name: Build iOS App
-        run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
-      - name: 'Build Android Apk'
-        run: flutter clean && flutter build apk --release
-      - name: Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
+        run: flutter clean && flutter build ios --release --no-codesign
+      - name: Upload iPA
+        uses: actions/upload-artifact@master
         with:
-          appId: ${{secrets.FIREBASE_APP_ID}}
-          token: ${{secrets.FIREBASE_TOKEN}}
-          groups: developers
-          file: build/app/outputs/flutter-apk/app-release.apk
+          name: ios-build
+          path: build/ios/iphoneos
+
+  build_deploy_web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - name: Create Firebase options from secrets
+        id: write_FIREBASE_OPTIONSIos
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'firebase_options.dart'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - name: 'Run flutter pub get'
+        run: flutter pub get
+
       - name: Enable flutter web
         run: flutter config --enable-web
-      - name: Build Web App
-        run: |
-          flutter build web
-          cd build/web
-          zip -r web-app.zip .
-      - name: Release Apps
-        uses: ncipollo/release-action@v1
+      - name: 'Build Web App'
+        run: flutter build web
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: 'build/app/outputs/apk/release/*.apk,build/ios/iphoneos/app.ipa,build/web/web-app.zip'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/web
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+  beta_apk:
+    name: Upload Android Beta to Firebase App Distribution
+    needs: [ build_android ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: apk-build
+      - name: Upload APK
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.0.0
+        with:
+          appId: ${{secrets.FIREBASE_APPID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          group: testers
+          file: app-release.aab
+  build_android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
+      - uses: actions/checkout@v1
+      - name: Create Firebase options from secrets
+        id: write_FIREBASE_OPTIONSIos
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'firebase_options.dart'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
+          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - name: 'Run flutter pub get'
+        run: flutter pub get
+      - name: 'Build Android app bundle'
+        run: flutter build appbundle
+      - name: Upload APK
+        uses: actions/upload-artifact@master
+        with:
+          name: appbundle-build
+          path: build/app/outputs/bundle/release
