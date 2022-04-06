@@ -34,6 +34,7 @@ jobs:
           file: Runner.ipa
   build_ios:
     runs-on: macos-latest
+    if: "contains(github.event.head_commit.message, 'build_ios')"
 
     steps:
       - name: Export Release Timestamp
@@ -47,7 +48,7 @@ jobs:
           fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - name: Create ExportOptions.plist from secrets
-        id: write_fileExportOptions.plist
+        id: write_fileExportOptions
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'ExportOptions.plist'
@@ -103,7 +104,7 @@ jobs:
 
   build_deploy_web:
     runs-on: ubuntu-latest
-
+    if: "contains(github.event.head_commit.message, 'build_deploy_web')"
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
@@ -163,6 +164,7 @@ jobs:
           file: app-release.aab
   build_android:
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'build_android')"
 
     steps:
       - name: Export Release Timestamp
