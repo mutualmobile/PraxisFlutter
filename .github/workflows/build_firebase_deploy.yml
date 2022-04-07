@@ -49,14 +49,6 @@ jobs:
           fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
 
-      - name: Create ExportOptions.plist from secrets
-        id: write_fileExportOptions
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'ExportOptions.plist'
-          fileDir: '/Users/runner/work/PraxisFlutter/ios/Runner/'
-          encodedString: ${{ secrets.ExportOptions }}
-
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
