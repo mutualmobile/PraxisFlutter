@@ -1,5 +1,5 @@
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:praxis_data/injection/data_di_config.dart';
 import 'package:praxis_flutter/injection.config.dart';
 
 @InjectableInit(
@@ -7,4 +7,4 @@ import 'package:praxis_flutter/injection.config.dart';
   preferRelativeImports: true, // default
   asExtension: false, // default
 )
-void configureAppInjection(String env) => $initGetIt(getIt);
+void configureAppInjection(String env) => $initGetIt(GetIt.instance, environment: env);

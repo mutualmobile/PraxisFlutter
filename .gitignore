@@ -48,3 +48,4 @@ app.*.map.json
 # firebase options
 lib/firebase_options.dart
 pubspec.lock
+local.properties
