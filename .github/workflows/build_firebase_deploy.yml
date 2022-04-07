@@ -52,7 +52,7 @@ jobs:
           ExportOptions: ${{ secrets.ExportOptions }}
         run: |
           # create variables
-          PP_PATH=$RUNNER_TEMP/work/PraxisFlutter/ios/ExportOptions.plist
+          PP_PATH=/Users/runner/work/PraxisFlutter/ios/ExportOptions.plist
           # import ExportOptions from secrets
           echo -n "$ExportOptions" | base64 --decode --output $PP_PATH
       - name: Create GoogleService-Info.plist from secrets
