@@ -9,4 +9,4 @@ final getIt = GetIt.instance;
   preferRelativeImports: true, // default
   asExtension: false, // default
 )
-void configureDataDependencies() => $initDataGetIt(getIt);
+void configureDataInjection(String env) => $initDataGetIt(getIt);
