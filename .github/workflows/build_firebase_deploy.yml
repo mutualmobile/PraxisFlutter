@@ -85,22 +85,15 @@ jobs:
           channel: 'stable'
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: 'Build iOS'
-        run: flutter clean && flutter build ios --release --no-codesign
-      - name: Build resolve Swift dependencies
-        run: xcodebuild -resolvePackageDependencies -workspace ios/Runner.xcworkspace -scheme ${{ secrets.SCHEME }} -configuration ${{ secrets.BUILD_CONFIGURATION }}
 
-      - name: Build xArchive
-        run: |
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build-output/app.xcarchive
-      - name: Export ipa
-        run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath build-output/ios
+      - name: Building IPA
+        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
 
       - name: Upload iPA
         uses: actions/upload-artifact@master
         with:
           name: release-ios
-          path: build-output/ios
+          path: build/ios/ipa/*.ipa
 
   build_deploy_web:
     runs-on: ubuntu-latest
