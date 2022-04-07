@@ -35,7 +35,6 @@ jobs:
 
   build_ios:
     runs-on: macos-latest
-    if: "contains(github.event.head_commit.message, 'build_ios')"
 
     steps:
       - name: Export Release Timestamp
