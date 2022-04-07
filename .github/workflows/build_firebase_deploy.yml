@@ -32,6 +32,7 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
           file: praxis_flutter.ipa
+
   build_ios:
     runs-on: macos-latest
     if: "contains(github.event.head_commit.message, 'build_ios')"
@@ -47,15 +48,15 @@ jobs:
           fileName: 'firebase_options.dart'
           fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+
       - name: Create ExportOptions.plist from secrets
-        env:
-          ExportOptions: ${{ secrets.ExportOptions }}
-        run: |
-          # create variables
-          PP_PATH=/Users/runner/work/PraxisFlutter/ios/ExportOptions.plist
-          touch PP_PATH
-          # import ExportOptions from secrets
-          echo -n "$ExportOptions" | base64 --decode --output $PP_PATH
+        id: write_fileExportOptions
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'ExportOptions.plist'
+          fileDir: '/Users/runner/work/PraxisFlutter/ios/'
+          encodedString: ${{ secrets.ExportOptions }}
+
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
@@ -63,11 +64,13 @@ jobs:
           fileName: 'GoogleService-Info.plist'
           fileDir: '/Users/runner/work/PraxisFlutter/ios/'
           encodedString: ${{ secrets.GoogleServiceInfo }}
+
       - name: Install Apple Certificate
         uses: apple-actions/import-codesign-certs@v1
         with:
           p12-file-base64: ${{ secrets.P12_BASE64 }}
           p12-password: ${{ secrets.P12_PASSWORD }}
+
       - name: Install the provisioning profile
         env:
           PROVISIONING_CERTIFICATE_BASE64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
@@ -79,6 +82,7 @@ jobs:
           # apply provisioning profile
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -89,7 +93,7 @@ jobs:
         run: flutter pub get
 
       - name: Building IPA
-        run: flutter build ipa --release --export-options-plist=ios/ExportOptions.plist
+        run: flutter build ipa --release --export-options-plist=/Users/runner/work/PraxisFlutter/ios/ExportOptions.plist
 
       - name: Upload iPA
         uses: actions/upload-artifact@master
