@@ -54,7 +54,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'GoogleService-Info.plist'
-          fileDir: '/Users/runner/work/PraxisFlutter/ios/'
+          fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/ios/'
           encodedString: ${{ secrets.GoogleServiceInfo }}
 
       # Install the Apple certificate and provisioning profile
