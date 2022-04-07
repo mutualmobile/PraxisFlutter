@@ -92,7 +92,7 @@ jobs:
 
       - name: Build xArchive
         run: |
-          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build-output/app.xcarchive PROVISIONING_PROFILE_SPECIFIER=a1840148-e2e4-41fd-8b94-f29e5d6bb6db
+          xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath build-output/app.xcarchive
       - name: Export ipa
         run: xcodebuild -exportArchive -archivePath build-output/app.xcarchive -exportOptionsPlist ios/ExportOptions.plist -exportPath build-output/ios
 
