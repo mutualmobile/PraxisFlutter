@@ -35,7 +35,6 @@ jobs:
 
   build_ios:
     runs-on: macos-latest
-
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
@@ -107,9 +106,9 @@ jobs:
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision
 
+
   build_deploy_web:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'build_deploy_web')"
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
@@ -167,10 +166,9 @@ jobs:
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
           file: app-release.aab
+
   build_android:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'build_android')"
-
     steps:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
