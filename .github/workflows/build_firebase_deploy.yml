@@ -54,7 +54,7 @@ jobs:
         uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'ExportOptions.plist'
-          fileDir: '/Users/runner/work/PraxisFlutter/ios/'
+          fileDir: '/Users/runner/work/PraxisFlutter/ios/Runner/'
           encodedString: ${{ secrets.ExportOptions }}
 
       - name: Create GoogleService-Info.plist from secrets
