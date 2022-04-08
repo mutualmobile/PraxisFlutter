@@ -39,14 +39,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
-
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
@@ -113,13 +105,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -158,14 +143,14 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: appbundle-build
+          name: android-build
       - name: Upload APK
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: app-release.aab
+          file: app-release.apk
 
   build_android:
     runs-on: ubuntu-latest
@@ -173,13 +158,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - name: Decode Keystore
         id: decode_keystore
         uses: timheuer/base64-to-file@v1.1
@@ -195,8 +173,8 @@ jobs:
           channel: 'stable'
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: 'Build Android app bundle'
-        run: flutter build appbundle --release
+      - name: 'Build Android apk'
+        run: flutter build apk --release
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
@@ -204,5 +182,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@master
         with:
-          name: appbundle-build
-          path: build/app/outputs/bundle/release
+          name: android-build
+          path: build/app/outputs/flutter-apk
