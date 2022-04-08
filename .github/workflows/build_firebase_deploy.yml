@@ -39,14 +39,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/Users/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
-
       - name: Create GoogleService-Info.plist from secrets
         id: write_fileGoogleServiceInfoIosPlist
         uses: timheuer/base64-to-file@v1.1
@@ -113,13 +105,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -173,13 +158,6 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=release_$(date +'%Y-%m-%d_%H-%m-%S')" >> $GITHUB_ENV
       - uses: actions/checkout@v1
-      - name: Create Firebase options from secrets
-        id: write_FIREBASE_OPTIONSIos
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase_options.dart'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
-          encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
