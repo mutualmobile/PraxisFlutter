@@ -14,39 +14,112 @@ class SplashScreen extends View {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ViewState<SplashScreen, SplashVM> {
+class _SplashScreenState extends ResponsiveViewState<SplashScreen, SplashVM> {
   _SplashScreenState() : super(SplashVM());
 
+  FlutterLogo flutterLogo() {
+    return const FlutterLogo(
+      size: 160,
+    );
+  }
+
+  ControlledWidgetBuilder<SplashVM> pressMeButton() {
+    return ControlledWidgetBuilder<SplashVM>(builder: (context, controller) {
+      return PraxisButton(
+        title: !controller.pressed ? "Press Me!" : "You Pressed me! woo hoo!",
+        onPressed: () {
+          controller.press(!controller.pressed);
+        },
+      );
+    });
+  }
+
+  PraxisButton loginButton() {
+    return PraxisButton(
+      title: "Login ?",
+      onPressed: () {
+        context.go(loginRoute);
+      },
+    );
+  }
+
+  Text praxisPlayground() => const Text("Welcome to Praxis Playground");
+
   @override
-  Widget get view => PraxisScaffold(
-      androidAppBar: AppBar(title: praxisPlayground(),),
-      iosNavBar: CupertinoNavigationBar(middle: praxisPlayground(),),
+  Widget get desktopView => PraxisScaffold(
+      androidAppBar: AppBar(
+        title: praxisPlayground(),
+      ),
+      iosNavBar: CupertinoNavigationBar(
+        middle: praxisPlayground(),
+      ),
       body: Center(
-        child: Column(
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            flutterLogo(),
+            Column(children: [
+              pressMeButton(),
+              verticalSpace(),
+              loginButton()
+            ],)
+          ],
+        ),
+      ));
+
+  @override
+  Widget get mobileView => PraxisScaffold(
+      androidAppBar: AppBar(
+        title: praxisPlayground(),
+      ),
+      iosNavBar: CupertinoNavigationBar(
+        middle: praxisPlayground(),
+      ),
+      body: Center(
+        child:  Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const FlutterLogo(
-              size: 160,
-            ),
-            ControlledWidgetBuilder<SplashVM>(
-                builder: (context, controller) {
-              return PraxisButton(
-                title:
-                    !controller.pressed ? "Press Me!" : "You Pressed me! woo hoo!",
-                onPressed: () {
-                  controller.press(!controller.pressed);
-                },
-              );
-            }),
-            PraxisButton(
-              title: "Login ?",
-              onPressed: () {
-                context.go(loginRoute);
-              },
+            flutterLogo(),
+            verticalSpace(),
+            pressMeButton(),
+            verticalSpace(),
+            loginButton()
+          ],
+        ),
+      ));
+
+  @override
+  Widget get tabletView => PraxisScaffold(
+      androidAppBar: AppBar(
+        title: praxisPlayground(),
+      ),
+      iosNavBar: CupertinoNavigationBar(
+        middle: praxisPlayground(),
+      ),
+      body: Center(
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            flutterLogo(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                pressMeButton(),
+                verticalSpace(),
+                loginButton()
+              ],
             )
           ],
         ),
       ));
 
-  Text praxisPlayground() => const Text("Welcome to Praxis Playground");
+  SizedBox verticalSpace() {
+    return const SizedBox(
+              height: 24,
+            );
+  }
+
+  @override
+  Widget get watchView => Container();
 }
