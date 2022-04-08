@@ -182,7 +182,7 @@ jobs:
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
       - name: Decode Keystore
         id: decode_keystore
-        uses: timheuer/base64-to-file@v1
+        uses: timheuer/base64-to-file@v1.1
         with:
           fileName: 'praxis_keystore.jks'
           fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/android/app/keystore/'
