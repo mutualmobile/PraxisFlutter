@@ -180,6 +180,13 @@ jobs:
           fileName: 'firebase_options.dart'
           fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: timheuer/base64-to-file@v1
+        with:
+          fileName: 'praxis_keystore.jks'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/android/keystore/'
+          encodedString: ${{ secrets.KEYSTORE }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
@@ -189,7 +196,11 @@ jobs:
       - name: 'Run flutter pub get'
         run: flutter pub get
       - name: 'Build Android app bundle'
-        run: flutter build appbundle
+        run: flutter build appbundle --release
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
       - name: Upload APK
         uses: actions/upload-artifact@master
         with:
