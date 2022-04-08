@@ -59,7 +59,7 @@ class PraxisFirebaseMessaging {
   }
 
   void whenMessagingAuthorized() async {
-    messaging.getToken().then((value) {
+    messaging.getToken(vapidKey: "BJPCVj0UQyIqSPWi25_vBmefW6VFJjXUQR45ZI8xylcfmrsCgWPW5go9JnWT6bmh-nqhOiWna6tC6Fg3SS0zif0").then((value) {
       messagingLogger.fine(value);
     });
 

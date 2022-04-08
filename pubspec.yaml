@@ -12,10 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  go_router: ^3.0.7
-  clean_architecture:
-    path: ./clean_architecture
 
+  go_router: ^3.0.7
   flex_color_scheme: ^4.2.0
   google_fonts: ^2.3.1
   cupertino_icons: ^1.0.4
@@ -28,26 +26,33 @@ dependencies:
   shared_preferences: ^2.0.13
   equatable: ^2.0.3
   firebase_core: ^1.14.0
-  firebase_auth: ^3.3.12
-  firebase_analytics: ^9.1.3
+  firebase_auth: ^3.3.13
+  firebase_analytics: ^9.1.4
   firebase_app_check: ^0.0.6+8
   firebase_messaging: ^11.2.12
   firebase_dynamic_links: ^4.1.2
   firebase_in_app_messaging: ^0.6.0+10
   firebase_app_installations: ^0.1.0+9
   google_sign_in: ^5.2.4
-  praxis_flutter_domain:
-    path: ./praxis_flutter_domain
-  praxis_data:
-    path: ./praxis_data
   flutter_local_notifications: ^9.4.0
   permission_handler: ^9.2.0
   shimmer: ^2.0.0
   uuid: ^3.0.6
 
+  clean_architecture:
+    path: ./clean_architecture
+  praxis_flutter_domain:
+    path: ./praxis_flutter_domain
+  praxis_data:
+    path: ./praxis_data
+
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
   test: any
   flutter_lints: ^1.0.4
