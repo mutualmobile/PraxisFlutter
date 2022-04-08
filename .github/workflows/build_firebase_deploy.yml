@@ -143,14 +143,14 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: appbundle-build
+          name: android-build
       - name: Upload APK
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.2
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: app-release.aab
+          file: app-release.apk
 
   build_android:
     runs-on: ubuntu-latest
@@ -166,10 +166,10 @@ jobs:
           channel: 'stable'
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: 'Build Android app bundle'
-        run: flutter build appbundle
+      - name: 'Build Android apl'
+        run: flutter build apk --release
       - name: Upload APK
         uses: actions/upload-artifact@master
         with:
-          name: appbundle-build
-          path: build/app/outputs/bundle/release
+          name: android-build
+          path: build/app/outputs/flutter-apk
