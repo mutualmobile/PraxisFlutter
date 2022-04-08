@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:praxis_flutter/application/widgets/abstract_plaform_widget.dart';
+import 'package:praxis_flutter/presentation/core/widgets/abstract_plaform_widget.dart';
 
 class PraxisProgressBar
     extends AbstractPlatformWidget<

@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  go_router: ^3.0.6
+  flutter_localizations:
+    sdk: flutter
+  go_router: ^3.0.7
   clean_architecture:
     path: ./clean_architecture
 
@@ -41,6 +42,8 @@ dependencies:
     path: ./praxis_data
   flutter_local_notifications: ^9.4.0
   permission_handler: ^9.2.0
+  shimmer: ^2.0.0
+  uuid: ^3.0.6
 
 
 dev_dependencies:
@@ -53,5 +56,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-#  assets:
-#    - images/applogo.png
+
+  assets:
+    - assets/logos/
+    - assets/images/
+    - assets/icons/
+    - lang/

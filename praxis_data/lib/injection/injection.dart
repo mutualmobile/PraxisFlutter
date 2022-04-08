@@ -1,12 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'data_di_config.config.dart';
-
-final getIt = GetIt.instance;
+import 'package:praxis_data/injection/injection.config.dart';
 
 @InjectableInit(
   initializerName: r'$initDataGetIt', // default
   preferRelativeImports: true, // default
   asExtension: false, // default
 )
-void configureDataDependencies() => $initDataGetIt(getIt);
+void configureDataInjection(String env) => $initDataGetIt(GetIt.instance, environment: env);

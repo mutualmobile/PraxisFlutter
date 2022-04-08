@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:praxis_flutter/application/widgets/platform_button.dart';
-import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-import 'package:praxis_flutter/application/widgets/platform_text_field.dart';
-import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_text_field.dart';
+import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/routing/routes.dart';
+
 
 class LoginPage extends StatelessWidget {
   final loginController = TextEditingController(text: 'random');
