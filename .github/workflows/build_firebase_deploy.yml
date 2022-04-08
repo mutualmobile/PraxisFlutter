@@ -185,7 +185,7 @@ jobs:
         uses: timheuer/base64-to-file@v1
         with:
           fileName: 'praxis_keystore.jks'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/android/keystore/'
+          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/android/app/keystore/'
           encodedString: ${{ secrets.KEYSTORE }}
       - uses: actions/setup-java@v1
         with:
