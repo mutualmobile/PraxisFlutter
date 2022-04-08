@@ -3,7 +3,6 @@ import 'package:praxis_flutter/features/home/home_page.dart';
 import 'package:praxis_flutter/features/joke_list/joke_list_page.dart';
 import 'package:praxis_flutter/features/login/login_page.dart';
 import 'package:praxis_flutter/features/splash/splash_page.dart';
-import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 
 const loginRoute = '/login';
 const jokeListRoute = "/jokesList";

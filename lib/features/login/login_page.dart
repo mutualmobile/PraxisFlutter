@@ -8,6 +8,7 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_text_field.dar
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 
+
 class LoginPage extends StatelessWidget {
   final loginController = TextEditingController(text: 'random');
   final passwordController = TextEditingController(text: 'random');

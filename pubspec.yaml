@@ -44,8 +44,6 @@ dependencies:
   permission_handler: ^9.2.0
   shimmer: ^2.0.0
   uuid: ^3.0.6
-  riverpod: ^1.0.3
-  flutter_riverpod: ^1.0.3
 
 
 dev_dependencies:

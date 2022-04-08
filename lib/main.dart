@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
@@ -24,5 +23,5 @@ void main() async {
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
   GetIt.instance.get<PraxisFirebaseMessaging>().setupMessaging();
-  runApp(const ProviderScope(child: PraxisApp()));
+  runApp(const PraxisApp());
 }
