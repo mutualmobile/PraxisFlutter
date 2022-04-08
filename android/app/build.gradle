@@ -53,7 +53,7 @@ android {
 
     signingConfigs {
         release {
-            def tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+            def tmpFilePath = System.getProperty("user.home") + "/work/PraxisFlutter/android/keystore/"
             def allFilesFromDir = new File(tmpFilePath).listFiles()
 
             if (allFilesFromDir != null) {
