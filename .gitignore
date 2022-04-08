@@ -50,4 +50,3 @@ app.*.map.json
 lib/firebase_options.dart
 pubspec.lock
 local.properties
-/web/firebase-messaging-sw.js

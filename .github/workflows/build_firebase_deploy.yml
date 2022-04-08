@@ -120,13 +120,6 @@ jobs:
           fileName: 'firebase_options.dart'
           fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/lib/'
           encodedString: ${{ secrets.FIREBASE_OPTIONS }}
-      - name: Create FIREBASE_MESSAGING_SW from secrets
-        id: write_FIREBASE_MESSAGING_SW
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: 'firebase-messaging-sw.js'
-          fileDir: '/home/runner/work/PraxisFlutter/PraxisFlutter/web/'
-          encodedString: ${{ secrets.FIREBASE_MESSAGING_SW }}
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
