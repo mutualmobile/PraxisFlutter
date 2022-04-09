@@ -68,9 +68,31 @@ android {
         }
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        production {
+            dimension "default"
+            applicationIdSuffix ""
+            manifestPlaceholders = [appName: "FlutterPraxis"]
+        }
+        staging {
+            dimension "default"
+            applicationIdSuffix ".stg"
+            manifestPlaceholders = [appName: "[STG] FlutterPraxis"]
+        }
+        development {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appName: "[DEV] FlutterPraxis"]
+        }
+    }
+
     buildTypes {
         release {
             signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
