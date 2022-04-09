@@ -117,7 +117,7 @@ jobs:
       - name: Enable flutter web
         run: flutter config --enable-web
       - name: 'Build Web App'
-        run: flutter build web
+        run: flutter build web --target lib/main_production.dart
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
