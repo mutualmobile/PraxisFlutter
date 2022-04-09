@@ -83,7 +83,7 @@ jobs:
         run: flutter pub get
 
       - name: Building IPA
-        run: flutter build ipa --release --export-options-plist=ios/Runner/ExportOptions.plist
+        run: flutter build ipa --release --flavor production --target lib/main_production.dart --export-options-plist=ios/Runner/ExportOptions.plist
 
       - name: Upload iPA
         uses: actions/upload-artifact@master
@@ -174,7 +174,7 @@ jobs:
       - name: 'Run flutter pub get'
         run: flutter pub get
       - name: 'Build Android apk'
-        run: flutter build apk --release
+        run: flutter build apk --release --flavor production --target lib/main_production.dart
         env:
           SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
