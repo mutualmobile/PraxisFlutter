@@ -15,9 +15,25 @@ void main() {
     // Trigger a frame.
     await tester.pumpAndSettle();
 
+    final button = find.byWidgetPredicate(
+          (Widget widget) =>
+          widget is Text && widget.data  == "Press Me!",
+    );
+    expect(
+      button,
+      findsOneWidget,
+    );
+
+    var pressButton = find.text("Press Me!");
+    await tester.tap(pressButton);
+
+    await tester.pump(const Duration(milliseconds: 500));
+
     expect(
       find.byWidgetPredicate(
-          (Widget widget) => widget is Text && widget.data! == "Press Me!"),
+            (Widget widget) =>
+        widget is Text && widget.data == "You Pressed me! woo hoo!",
+      ),
       findsOneWidget,
     );
   });

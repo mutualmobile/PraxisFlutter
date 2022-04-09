@@ -372,13 +372,13 @@ typedef ControlledBuilder<Con extends ViewModel> = Widget Function(
 ///     }
 ///   }
 /// ``
-class ControlledWidgetBuilder<Con extends ViewModel> extends StatelessWidget {
-  final ControlledBuilder<Con> builder;
+class ViewModelWidgetBuilder<VM extends ViewModel> extends StatelessWidget {
+  final ControlledBuilder<VM> builder;
 
-  ControlledWidgetBuilder({required this.builder});
+  ViewModelWidgetBuilder({required this.builder});
 
   @override
-  Widget build(BuildContext context) => Consumer<Con>(
-      builder: (BuildContext context, Con controller, _) =>
-          builder(context, controller));
+  Widget build(BuildContext context) => Consumer<VM>(
+      builder: (BuildContext context, VM viewModel, _) =>
+          builder(context, viewModel));
 }

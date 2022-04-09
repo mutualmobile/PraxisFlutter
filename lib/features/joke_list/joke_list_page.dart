@@ -31,7 +31,7 @@ class _JokeListPageState extends ViewState<JokeListPage, JokeListVM> {
           middle: text(),
         ),
         body:
-            ControlledWidgetBuilder<JokeListVM>(builder: (context, controller) {
+            ViewModelWidgetBuilder<JokeListVM>(builder: (context, controller) {
           return Stack(
             alignment: Alignment.center,
             children: [

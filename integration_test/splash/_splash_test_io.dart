@@ -21,19 +21,22 @@ void main() {
       await tester.pumpAndSettle();
       final button = find.byWidgetPredicate(
         (Widget widget) =>
-            widget is PraxisButton && widget.title == "Press Me!",
+            widget is Text && widget.data == "Press Me!",
       );
       expect(
         button,
         findsOneWidget,
       );
-      (button.evaluate().first.widget as PraxisButton).onPressed();
+
+      var pressButton = find.text("Press Me!");
+      await tester.tap(pressButton);
+
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(
         find.byWidgetPredicate(
               (Widget widget) =>
-          widget is PraxisButton && widget.title == "You Pressed me! woo hoo!",
+              widget is Text && widget.data == "You Pressed me! woo hoo!",
         ),
         findsOneWidget,
       );
