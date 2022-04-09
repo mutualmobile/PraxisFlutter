@@ -23,8 +23,8 @@ class _SplashScreenState extends ResponsiveViewState<SplashScreen, SplashVM> {
     );
   }
 
-  ControlledWidgetBuilder<SplashVM> pressMeButton() {
-    return ControlledWidgetBuilder<SplashVM>(builder: (context, controller) {
+  ViewModelWidgetBuilder<SplashVM> pressMeButton() {
+    return ViewModelWidgetBuilder<SplashVM>(builder: (context, controller) {
       return PraxisButton(
         title: !controller.pressed ? "Press Me!" : "You Pressed me! woo hoo!",
         onPressed: () {

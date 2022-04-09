@@ -34,8 +34,8 @@ class _HomePageState extends ViewState<HomePage, HomeVM> {
         ));
   }
 
-  ControlledWidgetBuilder<HomeVM> aboutWidget() {
-    return ControlledWidgetBuilder<HomeVM>(
+  ViewModelWidgetBuilder<HomeVM> aboutWidget() {
+    return ViewModelWidgetBuilder<HomeVM>(
         builder: (context, controller) {
       return PraxisButton(
           title: "About",
@@ -60,8 +60,8 @@ class _HomePageState extends ViewState<HomePage, HomeVM> {
 
   Text appBarTitle() => const Text("Praxis");
 
-  ControlledWidgetBuilder<HomeVM> showRandomJokes() {
-    return ControlledWidgetBuilder<HomeVM>(
+  ViewModelWidgetBuilder<HomeVM> showRandomJokes() {
+    return ViewModelWidgetBuilder<HomeVM>(
         builder: (context, controller) {
           return  PraxisButton(
               title: "Show 5 random Jokes",
