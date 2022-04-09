@@ -150,7 +150,7 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
           groups: testers
-          file: app-release.apk
+          file: app-production-release.apk
 
   build_android:
     runs-on: ubuntu-latest
