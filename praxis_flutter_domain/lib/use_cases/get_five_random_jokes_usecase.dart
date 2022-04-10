@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:clean_architecture/clean_architecture.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
+import 'package:clean_architecture/src/usecase.dart';
 
 class GetFiveRandomJokesUseCase extends UseCase<GetJokeListUseCaseResponse, void> {
 

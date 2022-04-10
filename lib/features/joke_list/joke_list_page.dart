@@ -1,51 +1,70 @@
 import 'package:flutter/cupertino.dart';
-import 'package:clean_architecture/clean_architecture.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
-import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:praxis_flutter/features/joke_list/jokes_cubit.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
-import 'package:praxis_flutter/features/joke_list/joke_list_vm.dart';
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 
-class JokeListPage extends View {
-  JokeListPage({Key? key}) : super(key: key);
+class JokeListPage extends StatelessWidget {
+  const JokeListPage({Key? key}) : super(key: key);
 
   @override
-  _JokeListPageState createState() => _JokeListPageState();
-}
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => JokesCubit(),
+      child: BlocListener<JokesCubit, JokesState>(
+        child: jokesScaffold(),
+        listener: (context, state) {},
+      ),
+    );
+  }
 
-class _JokeListPageState extends ViewState<JokeListPage, JokeListVM> {
-  _JokeListPageState()
-      : super(JokeListVM(DataJokesRepository(GetIt.instance.get<JokesListMapper>())));
-
-  @override
-  Widget get view {
+  PraxisScaffold jokesScaffold() {
     return PraxisScaffold(
-        key: globalKey,
         androidAppBar: AppBar(
           title: text(),
         ),
         iosNavBar: CupertinoNavigationBar(
           middle: text(),
         ),
-        body:
-            ViewModelWidgetBuilder<JokeListVM>(builder: (context, controller) {
+        body: BlocBuilder<JokesCubit, JokesState>(builder: (context, state) {
           return Stack(
             alignment: Alignment.center,
             children: [
-              ListView.builder(
-                  itemCount: controller.jokesList.jokes.length,
-                  itemBuilder: (context, index) {
-                    return Text(controller.jokesList.jokes[index].joke)
-                        .paddingAll(8);
-                  }),
-              controller.showProgress ? const PraxisProgressBar() : Container()
+              state is JokesLoading
+                  ? const PraxisProgressBar()
+                  : state is JokesLoaded
+                      ? buildJokesList(state)
+                      : state is JokesException
+                          ? retryButton(state, context)
+                          : Container()
             ],
           );
         }));
   }
 
+  ListView buildJokesList(JokesLoaded state) {
+    return ListView.builder(
+        itemCount: (state).jokes.jokes.length,
+        itemBuilder: (context, index) {
+          return Text(state.jokes.jokes[index].joke).paddingAll(8);
+        });
+  }
+
   Text text() => const Text("Praxis");
+
+  retryButton(JokesException state, BuildContext context) {
+    return Column(
+      children: [
+        Text(state.exception.toString()).paddingAll(8),
+        PraxisButton(
+            title: "Retry ?",
+            onPressed: () {
+              context.read<JokesCubit>().loadJokes();
+            })
+      ],
+    );
+  }
 }
