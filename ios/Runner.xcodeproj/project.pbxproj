@@ -633,6 +633,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[DEV] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_development.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -713,6 +714,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[DEV] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_development.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -790,6 +792,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[DEV] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_development.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -871,6 +874,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[STG] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_staging.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -950,6 +954,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[STG] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_staging.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1026,6 +1031,7 @@
 				DEVELOPMENT_TEAM = RLNA7ZSN7E;
 				ENABLE_BITCODE = NO;
 				FLAVOR_APP_NAME = "[STG] FlutterPraxis";
+				FLUTTER_TARGET = lib/main_staging.dart;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

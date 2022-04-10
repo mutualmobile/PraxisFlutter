@@ -14,14 +14,14 @@ import 'package:provider/provider.dart';
 /// The [ViewModel] is also route-aware. However, in order to use it,
 /// it has to be initialized separately.
 ///
-/// Usage of a [Controller]:
+/// Usage of a [ViewModel]:
 ///
 /// ```dart
-///     // ***************** Controller *****************
-///     class CounterController extends Controller {
+///     // ***************** ViewModel *****************
+///     class CounterViewModel extends ViewModel {
 ///       int counter;
 ///       final MyPresenter presenter;
-///       CounterController() : counter = 0, presenter = MyPresenter(), super();
+///       CounterViewModel() : counter = 0, presenter = MyPresenter(), super();
 ///
 ///       void increment() {
 ///         counter++;
@@ -44,13 +44,13 @@ import 'package:provider/provider.dart';
 ///     // ***************** View *****************
 ///     class CounterPage extends View {
 ///       @override
-///       // you can inject dependencies for the controller and the state in here
-///       State<StatefulWidget> createState() => CounterState(CounterController());
+///       // you can inject dependencies for the viewModel and the state in here
+///       State<StatefulWidget> createState() => CounterState(CounterViewModel());
 ///     }
 ///
 ///     // ***************** ViewState *****************
-///     class CounterState extends ViewState<CounterPage, CounterController> {
-///       CounterState(CounterController controller) : super(controller);
+///     class CounterState extends ViewState<CounterPage, CounterViewModel> {
+///       CounterState(CounterViewModel viewModel) : super(viewModel);
 ///
 ///       @override
 ///       Widget build(BuildContext context) {
@@ -58,14 +58,14 @@ import 'package:provider/provider.dart';
 ///           title: 'Flutter Demo',
 ///           home: Scaffold(
 ///             key: globalKey, // using the built-in global key of the `View` for the scaffold or any other
-///                             // widget provides the controller with a way to access them via getContext(), getState(), getStateKey()
+///                             // widget provides the viewModel with a way to access them via getContext(), getState(), getStateKey()
 ///             body: Column(
 ///               children: <Widget>[
 ///                 Center(
 ///                   // show the number of times the button has been clicked
-///                   child: Text(controller.counter.toString()),
+///                   child: Text(viewModel.counter.toString()),
 ///                 ),
-///                 MaterialButton(onPressed: () => controller.increment()),
+///                 MaterialButton(onPressed: () => viewModel.increment()),
 ///               ],
 ///             ),
 ///           ),
@@ -107,7 +107,7 @@ abstract class ViewModel
     }
   }
 
-  /// _refreshes the [ControlledWidgets] and the [StatefulWidgets] that depends on [FlutterCleanArchitecture.getController] of the [View] associated with the [ViewModel] if it is still mounted.
+  /// _refreshes the [ViewModelWidgets] and the [StatefulWidgets] that depends on [FlutterCleanArchitecture.getViewModel] of the [View] associated with the [ViewModel] if it is still mounted.
   @protected
   void refreshUI() {
     if (_isMounted) {
@@ -151,7 +151,7 @@ abstract class ViewModel
     assert(_globalKey.currentState != null,
         '''Make sure you are using the `globalKey` that is built into the `ViewState` inside your `build()` method.
         For example:
-        `key: globalKey,` Otherwise, there is no state that the `Controller` could access.
+        `key: globalKey,` Otherwise, there is no state that the `ViewModel` could access.
         If this does not solve the issue, please open an issue at `https://github.com/ShadyBoukhary/clean_architecture` describing 
      the error.''');
 
@@ -170,13 +170,13 @@ abstract class ViewModel
     _globalKey = key;
   }
 
-  /// Retrieves the [BuildContext] associated with the `View`. Will throw an error if initController() was not called prior.
+  /// Retrieves the [BuildContext] associated with the `View`. Will throw an error if initViewModel() was not called prior.
   @protected
   BuildContext getContext() {
     assert(_globalKey.currentContext != null,
         '''Make sure you are using the `globalKey` that is built into the `ViewState` inside your `build()` method.
         For example:
-        `key: globalKey,` Otherwise, there is no context that the `Controller` could access.
+        `key: globalKey,` Otherwise, there is no context that the `ViewModel` could access.
         If this does not solve the issue, please open an issue at `https://github.com/ShadyBoukhary/clean_architecture` describing 
      the error.''');
 
@@ -186,9 +186,9 @@ abstract class ViewModel
   /// Initialize the listeners inside the the [ViewModel]'s [Presenter]. This method is called automatically inside the
   /// [ViewModel] constructor and must be overridden. For example:
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       final MyPresenter presenter;
-  ///       MyController(): presenter = MyPresenter(), super();
+  ///       MyViewModel(): presenter = MyPresenter(), super();
   ///
   ///       @override
   ///       void initListeners() {
@@ -209,7 +209,7 @@ abstract class ViewModel
   /// On iOS, this state corresponds to an app or the Flutter host view running in
   /// the foreground inactive state. Apps transition to this state when in a phone call,
   /// responding to a TouchID request, when entering the app switcher or the control center,
-  /// or when the UIViewController hosting the Flutter app is transitioning.
+  /// or when the UIViewViewModel hosting the Flutter app is transitioning.
   /// On Android, this corresponds to an app or the Flutter host view running in
   /// the foreground inactive state. Apps transition to this state when another
   /// activity is focused, such as a split-screen app, a phone call, a
@@ -217,7 +217,7 @@ abstract class ViewModel
   ///
   /// Apps in this state should assume that they may be [onPaused] at any time.
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onInActive() => print('App is in the background.');
   ///     }
@@ -229,7 +229,7 @@ abstract class ViewModel
   /// When the application is in this state, the engine will not call the [Window.onBeginFrame] and [Window.onDrawFrame] callbacks.
   /// Android apps in this state should assume that they may enter the [detached] state at any time.
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onPaused() => print('App is paused.');
   ///     }
@@ -239,7 +239,7 @@ abstract class ViewModel
 
   /// Called when the application is visible and is responding to the user i.e. in the foreground and running.
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onResumed() => print('App is resumed.');
   ///     }
@@ -251,7 +251,7 @@ abstract class ViewModel
   /// When the application is in this state, the engine is still running but not attached to any view.
   ///
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onDetached() => print('App is about to detach.');
   ///     }
@@ -275,7 +275,7 @@ abstract class ViewModel
   /// Usage:
   ///
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onDeactivated() => print('View is about to be deactivated and maybe disposed');
   ///     }
@@ -294,7 +294,7 @@ abstract class ViewModel
   /// Usage:
   ///
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onReassembled() => print('View is about to be reassembled');
   ///     }
@@ -309,7 +309,7 @@ abstract class ViewModel
   /// actions that depends on [BuildContext] here.
   ///
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onDidChangeDependencies() => print('View is about to run didChangeDependencies life cycle');
   ///     }
@@ -322,7 +322,7 @@ abstract class ViewModel
   /// Should be used when need to perform some action on [View.initState] life cycle.
   ///
   /// ```dart
-  ///     class MyController extends Controller {
+  ///     class MyViewModel extends ViewModel {
   ///       @override
   ///       void onInitState() => print('View is about to run initState life cycle');
   ///     }
@@ -331,15 +331,15 @@ abstract class ViewModel
   void onInitState() {}
 }
 
-typedef ControlledBuilder<Con extends ViewModel> = Widget Function(
-    BuildContext context, Con controller);
+typedef ViewModelBuilder<Con extends ViewModel> = Widget Function(
+    BuildContext context, Con viewModel);
 
 /// This is a representation of a widget that is controlled by a [ViewModel] and needs to be re-rendered when
 /// [ViewModel.refreshUI] is triggered.
 ///
 /// This was created to optimize the render cycle from a [ViewState]'s widget tree.
 ///
-/// When [ViewModel.refreshUI] is called, only the ControlledWidgets inside [ViewState.view] will be re-rendered.
+/// When [ViewModel.refreshUI] is called, only the ViewModelWidgets inside [ViewState.view] will be re-rendered.
 ///
 /// Example:
 ///
@@ -349,8 +349,8 @@ typedef ControlledBuilder<Con extends ViewModel> = Widget Function(
 ///     State<StatefulWidget> createState() => ExampleState();
 ///   }
 ///
-///   class ExampleState extends ViewState<ExamplePage, ExampleController> {
-///     ExampleState() : super(ExampleController());
+///   class ExampleState extends ViewState<ExamplePage, ExampleViewModel> {
+///     ExampleState() : super(ExampleViewModel());
 ///
 ///     Widget get view {
 ///       return Scaffold(
@@ -359,10 +359,10 @@ typedef ControlledBuilder<Con extends ViewModel> = Widget Function(
 ///           child: Column(
 ///             children: [
 ///               Text("Uncontrolled title that will not re-render"),
-///               ControlledWidgetBuilder(
-///                 builder: (context, controller) {
-///                   // Controlled widget that depends on controllers value
-///                   return Text(controller.foo);
+///               ViewModelWidgetBuilder(
+///                 builder: (context, viewModel) {
+///                   // ViewModel widget that depends on viewModels value
+///                   return Text(viewModel.foo);
 ///                 }
 ///               )
 ///             ]
@@ -373,7 +373,7 @@ typedef ControlledBuilder<Con extends ViewModel> = Widget Function(
 ///   }
 /// ``
 class ViewModelWidgetBuilder<VM extends ViewModel> extends StatelessWidget {
-  final ControlledBuilder<VM> builder;
+  final ViewModelBuilder<VM> builder;
 
   ViewModelWidgetBuilder({required this.builder});
 

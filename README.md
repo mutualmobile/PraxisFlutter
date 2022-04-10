@@ -96,7 +96,14 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 }
 ```
 
-3. Use the new string
+3. Run the command to update translation
+
+```sh
+# Generate Translations.
+$ flutter gen-l10n --template-arb-file=arb/app_en.arb
+```
+
+4. Use the new string after running 
 
 ```dart
 import 'package:flutter_praxis/l10n/l10n.dart';

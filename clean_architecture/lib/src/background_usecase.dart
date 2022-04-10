@@ -110,11 +110,12 @@ abstract class BackgroundUseCase<T, Params> extends UseCase<T, Params> {
   /// to a [BehaviorSubject] using the [observer] provided by the user.
   /// All [Params] are sent to the [_isolate] through [BackgroundUseCaseParams].
   @override
-  void execute(Observer<T> observer, [Params? params]) async {
+  void execute(
+      void onData(T? event)?, Function? onError, void onDone()?, [Params? params]) async {
     if (!isRunning) {
       _state = BackgroundUseCaseState.loading;
-      _subject.listen(observer.onNext,
-          onError: observer.onError, onDone: observer.onComplete);
+      _subject.listen(onData,
+          onError: onError, onDone: onDone);
       _run = buildUseCaseTask();
       Isolate.spawn<BackgroundUseCaseParams>(_run,
               BackgroundUseCaseParams(_receivePort.sendPort, params: params))

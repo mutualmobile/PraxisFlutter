@@ -6,19 +6,17 @@ import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import 'package:responsive_builder/responsive_builder.dart';
-export 'package:clean_architecture/src/observer.dart';
-export 'package:clean_architecture/src/presenter.dart';
 export 'package:clean_architecture/src/usecase.dart';
 export 'package:clean_architecture/src/view.dart';
 export 'package:clean_architecture/src/viewmodel.dart';
 export 'package:clean_architecture/src/background_usecase.dart';
 
 class FlutterCleanArchitecture {
-  /// Retrieves a Controller from the widget tree if one exists
-  /// Can be used in widgets that exist in pages and need to use the same controller
-  static Con getController<Con extends ViewModel>(BuildContext context,
+  /// Retrieves a ViewModel from the widget tree if one exists
+  /// Can be used in widgets that exist in pages and need to use the same viewModel
+  static VM getViewModel<VM extends ViewModel>(BuildContext context,
       {bool listen = true}) {
-    return Provider.of<Con>(context, listen: listen);
+    return Provider.of<VM>(context, listen: listen);
   }
 
   /// Enable customize default view breakpoints. To do so, just call it before `runApp`.

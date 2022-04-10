@@ -3,5 +3,9 @@
     "counterAppBarTitle": "Counter",
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
-    }
+    },
+    "emailErrorTitle":"Email Invalid",
+    "emailErrorMessage":"The email that you have entered is invalid.",
+    "passwordErrorTitle":"Password Invalid",
+    "passwordErrorMessage":"The password that you have entered has <6 characters."
 }
