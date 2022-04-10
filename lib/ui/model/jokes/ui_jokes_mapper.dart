@@ -1,8 +1,10 @@
+import 'package:injectable/injectable.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 import 'package:praxis_flutter_domain/mapper/ui_model_mapper.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke.dart';
 
+@injectable
 class UIJokeMapper extends UiModelMapper<DMJokeList, UIJokeList> {
   @override
   DMJokeList mapToDomain(UIJokeList modelItem) {
