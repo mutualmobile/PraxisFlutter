@@ -5,6 +5,7 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_dialog.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/routing/routes.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -29,7 +30,7 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  aboutWidget(context) {
+  Widget aboutWidget(context) {
     return PraxisButton(
         title: "About",
         onPressed: () {
@@ -52,7 +53,7 @@ class HomePage extends StatelessWidget {
 
   Text appBarTitle() => const Text("Praxis");
 
-  showRandomJokes(context) {
+  Widget showRandomJokes(BuildContext context) {
     return PraxisButton(
         title: "Show 5 random Jokes",
         onPressed: () {

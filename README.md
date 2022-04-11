@@ -28,6 +28,12 @@ This project contains 3 flavors:
 - staging
 - production
 
+To build the generated code
+
+```sh
+$ flutter packages pub run build_runner build --delete-conflicting-outputs
+
+
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
 
 ```sh
