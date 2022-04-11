@@ -1,27 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:praxis_flutter/application/extensions/widget_extensions.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_data/repositories/jokes/data_jokes_repository.dart';
-import 'package:praxis_flutter/application/widgets/platform_button.dart';
-import 'package:praxis_flutter/application/widgets/platform_dialog.dart';
-import 'package:praxis_flutter/application/widgets/platform_progress_bar.dart';
-import 'package:praxis_flutter/application/widgets/platform_scaffold.dart';
-import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
-import 'home_controller.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_dialog.dart';
+import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
+import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
+import 'package:praxis_flutter/routing/routes.dart';
+import 'package:go_router/go_router.dart';
 
-class HomePage extends View {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends ViewState<HomePage, HomeController> {
-  _HomePageState() : super(HomeController(DataJokesRepository(JokesListMapper(JokeMapper()))));
-
-  @override
-  Widget get view {
+  Widget build(BuildContext context) {
     return PraxisScaffold(
         androidAppBar: AppBar(
           title: appBarTitle(),
@@ -29,30 +19,30 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
         iosNavBar: CupertinoNavigationBar(
           middle: appBarTitle(),
         ),
-        key: globalKey,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [heading().paddingAll(4), progressIndicator().paddingAll(4), aboutWidget().paddingAll(4)],
+          children: [
+            heading().paddingAll(4),
+            showRandomJokes(context).paddingAll(4),
+            aboutWidget(context).paddingAll(4)
+          ],
         ));
   }
 
-  ControlledWidgetBuilder<HomeController> aboutWidget() {
-    return ControlledWidgetBuilder<HomeController>(
-        builder: (context, controller) {
-      return PraxisButton(
-          title: "About",
-          onPressed: () {
-            showAlertDialog(
-                context: context,
-                title: "About Praxis",
-                content:
-                    "PraxisFlutter is a sample flutter app which can be used as a base project for other projects written in flutter. "
-                    "The app uses clean architecture to provide a robust base to the app.\n\n"
-                    "The http library is used to fetch jokes along with the async/await which handles connections asynchronously and makes the app more reliable.",
-                defaultActionText: "OK");
-          });
-    });
+  Widget aboutWidget(context) {
+    return PraxisButton(
+        title: "About",
+        onPressed: () {
+          showAlertDialog(
+              context: context,
+              title: "About Praxis",
+              content:
+                  "PraxisFlutter is a sample flutter app which can be used as a base project for other projects written in flutter. "
+                  "The app uses clean architecture to provide a robust base to the app.\n\n"
+                  "The http library is used to fetch jokes along with the async/await which handles connections asynchronously and makes the app more reliable.",
+              defaultActionText: "OK");
+        });
   }
 
   Widget heading() {
@@ -61,20 +51,13 @@ class _HomePageState extends ViewState<HomePage, HomeController> {
     );
   }
 
-  ControlledWidgetBuilder<HomeController> progressIndicator() {
-    return ControlledWidgetBuilder<HomeController>(
-        builder: (context, controller) {
-      if (controller.showProgress) {
-        return const PraxisProgressBar();
-      } else {
-        return PraxisButton(
-            title: "Show 5 random Jokes",
-            onPressed: () {
-              controller.fetchJokeList();
-            });
-      }
-    });
-  }
-
   Text appBarTitle() => const Text("Praxis");
+
+  Widget showRandomJokes(BuildContext context) {
+    return PraxisButton(
+        title: "Show 5 random Jokes",
+        onPressed: () {
+          context.push(jokeListRoute);
+        });
+  }
 }

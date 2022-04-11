@@ -7,4 +7,5 @@ environment:
 
 dependencies:
   equatable: ^2.0.3
-  flutter_clean_architecture: ^5.0.2
+  clean_architecture:
+    path: ../clean_architecture

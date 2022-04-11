@@ -3,7 +3,6 @@ import 'package:praxis_flutter/features/home/home_page.dart';
 import 'package:praxis_flutter/features/joke_list/joke_list_page.dart';
 import 'package:praxis_flutter/features/login/login_page.dart';
 import 'package:praxis_flutter/features/splash/splash_page.dart';
-import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 
 const loginRoute = '/login';
 const jokeListRoute = "/jokesList";
@@ -22,29 +21,27 @@ final praxisRoutes = GoRouter(
 jokeListRoutePage() {
   return GoRoute(
     path: jokeListRoute,
-    builder: (context, state) => JokeListPage(
-      jokeList: state.extra! as UIJokeList,
-    ),
+    builder: (context, state) => const JokesPage(),
   );
 }
 
 GoRoute homePageRoute() {
   return GoRoute(
     path: homeRoute,
-    builder: (context, state) => HomePage(),
+    builder: (context, state) => const HomePage(),
   );
 }
 
 GoRoute loginPageRoute() {
   return GoRoute(
     path: loginRoute,
-    builder: (context, state) => LoginPage(),
+    builder: (context, state) => const LoginPage(),
   );
 }
 
 GoRoute splashRoute() {
   return GoRoute(
     path: rootRoute,
-    builder: (context, state) => SplashScreen(),
+    builder: (context, state) => const SplashPage(),
   );
 }

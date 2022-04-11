@@ -2,17 +2,16 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:praxis_flutter/application/widgets/abstract_plaform_widget.dart';
+import 'package:praxis_flutter/presentation/core/widgets/abstract_plaform_widget.dart';
 import 'package:praxis_flutter/routing/routes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:praxis_flutter/l10n/l10n.dart';
 
 class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   /// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
-  const PraxisApp({
-    Key? key,
-  }) : super(key: key);
+  final String title;
 
-  static const String title = 'Praxis';
+  const PraxisApp({Key? key, this.title = 'Praxis'}) : super(key: key);
 
   @override
   CupertinoApp buildCupertino(BuildContext context) {
@@ -22,16 +21,25 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
       theme: const CupertinoThemeData(brightness: Brightness.dark),
       routeInformationParser: praxisRoutes.routeInformationParser,
       routerDelegate: praxisRoutes.routerDelegate,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 
   @override
   MaterialApp buildMaterial(BuildContext context) {
-    var lightTheme =
-        FlexColorScheme.light(scheme: FlexScheme.amber).toTheme;
+    var lightTheme = FlexColorScheme.light(scheme: FlexScheme.amber).toTheme;
     var darkTheme = FlexColorScheme.dark(scheme: FlexScheme.amber).toTheme;
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
       title: title,
       theme: lightTheme,
       darkTheme: darkTheme,
