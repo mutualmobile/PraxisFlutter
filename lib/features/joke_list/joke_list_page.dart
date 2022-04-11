@@ -30,18 +30,18 @@ class JokeListPage extends StatelessWidget {
           middle: text(),
         ),
         body: BlocBuilder<JokesCubit, JokesState>(builder: (context, state) {
-          return Stack(
+          return Center(child: Stack(
             alignment: Alignment.center,
             children: [
               state is JokesLoading
                   ? const PraxisProgressBar()
                   : state is JokesLoaded
-                      ? buildJokesList(state)
-                      : state is JokesException
-                          ? retryButton(state, context)
-                          : Container()
+                  ? buildJokesList(state)
+                  : state is JokesException
+                  ? retryButton(state, context)
+                  : Container()
             ],
-          );
+          ),);
         }));
   }
 
