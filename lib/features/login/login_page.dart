@@ -22,35 +22,46 @@ class LoginPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => LoginCubit(),
       child: BlocListener<LoginCubit, LoginState>(
-        child: PraxisScaffold(
-          body: SafeArea(child: buildColumn(context)),
-          iosNavBar: CupertinoNavigationBar(
-            middle: title(),
-          ),
-          androidAppBar: AppBar(
-            title: title(),
-          ),
-        ),
-        listener: (BuildContext context, state) {
-          if (state is LoginFailed) {
-            if (state.exception is EmailValidationException) {
-              showAlertDialog(
-                  context: context,
-                  title: context.l10n.emailErrorTitle,
-                  content: context.l10n.emailErrorMessage,
-                  defaultActionText: "OK");
-            }
-            if (state.exception is PasswordTooShortException) {
-              showAlertDialog(
-                  context: context,
-                  title: context.l10n.passwordErrorTitle,
-                  content: context.l10n.passwordErrorMessage,
-                  defaultActionText: "OK");
-            }
-          } else if (state is LoginSuccess) {
-            context.go(homeRoute);
-          }
-        },
+        child: const LoginView(),
+        listener: loginListener,
+      ),
+    );
+  }
+
+  void loginListener(BuildContext context, LoginState state) {
+    if (state is LoginFailed) {
+      if (state.exception is EmailValidationException) {
+        showAlertDialog(
+            context: context,
+            title: context.l10n.emailErrorTitle,
+            content: context.l10n.emailErrorMessage,
+            defaultActionText: "OK");
+      }
+      if (state.exception is PasswordTooShortException) {
+        showAlertDialog(
+            context: context,
+            title: context.l10n.passwordErrorTitle,
+            content: context.l10n.passwordErrorMessage,
+            defaultActionText: "OK");
+      }
+    } else if (state is LoginSuccess) {
+      context.go(homeRoute);
+    }
+  }
+}
+
+class LoginView extends StatelessWidget {
+  const LoginView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PraxisScaffold(
+      body: SafeArea(child: buildColumn(context)),
+      iosNavBar: CupertinoNavigationBar(
+        middle: title(),
+      ),
+      androidAppBar: AppBar(
+        title: title(),
       ),
     );
   }

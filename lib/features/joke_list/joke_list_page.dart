@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/features/joke_list/jokes_cubit.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
@@ -7,21 +8,26 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_progress_bar.d
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 
-class JokeListPage extends StatelessWidget {
-  const JokeListPage({Key? key}) : super(key: key);
+class JokesPage extends StatelessWidget {
+  const JokesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => JokesCubit(),
       child: BlocListener<JokesCubit, JokesState>(
-        child: jokesScaffold(),
+        child: const JokeListPage(),
         listener: (context, state) {},
       ),
     );
   }
+}
 
-  PraxisScaffold jokesScaffold() {
+class JokeListPage extends StatelessWidget {
+  const JokeListPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return PraxisScaffold(
         androidAppBar: AppBar(
           title: text(),
@@ -30,18 +36,20 @@ class JokeListPage extends StatelessWidget {
           middle: text(),
         ),
         body: BlocBuilder<JokesCubit, JokesState>(builder: (context, state) {
-          return Center(child: Stack(
-            alignment: Alignment.center,
-            children: [
-              state is JokesLoading
-                  ? const PraxisProgressBar()
-                  : state is JokesLoaded
-                  ? buildJokesList(state)
-                  : state is JokesException
-                  ? retryButton(state, context)
-                  : Container()
-            ],
-          ),);
+          return Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                state is JokesLoading
+                    ? const PraxisProgressBar()
+                    : state is JokesLoaded
+                        ? buildJokesList(state)
+                        : state is JokesException
+                            ? retryButton(state, context)
+                            : Container()
+              ],
+            ),
+          );
         }));
   }
 
@@ -57,6 +65,7 @@ class JokeListPage extends StatelessWidget {
 
   retryButton(JokesException state, BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(state.exception.toString()).paddingAll(8),
         PraxisButton(

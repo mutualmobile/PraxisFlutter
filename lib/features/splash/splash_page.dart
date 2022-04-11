@@ -8,8 +8,20 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/routing/routes.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashPage extends StatelessWidget {
+  const SplashPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => SplashCubit(),
+      child: const SplashView(),
+    );
+  }
+}
+
+class SplashView extends StatelessWidget {
+  const SplashView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +32,17 @@ class SplashScreen extends StatelessWidget {
         iosNavBar: CupertinoNavigationBar(
           middle: praxisPlayground(),
         ),
-        body: BlocProvider(
-          create: (_) => SplashCubit(),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                flutterLogo(),
-                verticalSpace(),
-                pressMeButton(),
-                verticalSpace(),
-                loginButton(context)
-              ],
-            ),
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              flutterLogo(),
+              verticalSpace(),
+              pressMeButton(),
+              verticalSpace(),
+              loginButton(context)
+            ],
           ),
         ));
   }
