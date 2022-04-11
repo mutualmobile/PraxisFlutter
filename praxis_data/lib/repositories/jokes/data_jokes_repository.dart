@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:logger/logger.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logging/logging.dart';
-import 'package:praxis_data/mapper/entity_mapper.dart';
+import 'package:logger/logger.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
 import 'package:praxis_data/models/jokes/dt_joke_list.dart';
 import 'package:praxis_data/network/http_helper.dart';
