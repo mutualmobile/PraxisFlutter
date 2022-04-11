@@ -32,6 +32,7 @@ This project contains 3 flavors:
 ```sh
 To generate code for injectable
 
+```sh
 $ flutter packages pub run build_runner build --delete-conflicting-outputs
 
 ---
