@@ -7,25 +7,38 @@ import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:praxis_flutter/bloc/app_bloc_observer.dart';
 import 'package:praxis_flutter/firebase_options.dart';
 import 'package:praxis_flutter/infrastructure/notifications/firebase_messaging.dart';
 import 'package:praxis_flutter/injection.dart';
 
-class AppBlocObserver extends BlocObserver {
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-    log('onChange(${bloc.runtimeType}, $change)');
-  }
+Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
+  flutterLogError();
 
-  @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    log('onError(${bloc.runtimeType}, $error, $stackTrace)');
-    super.onError(bloc, error, stackTrace);
-  }
+  WidgetsFlutterBinding.ensureInitialized();
+
+  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  configureAppInjection(env);
+
+  await runZonedGuarded(
+    () async {
+      await BlocOverrides.runZoned(
+        () async => runApp(await builder()),
+        blocObserver: AppBlocObserver(),
+      );
+    },
+    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  );
+
+  GetIt.instance.get<PraxisFirebaseMessaging>().setupMessaging();
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
+void flutterLogError() {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -34,23 +47,4 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
-  WidgetsFlutterBinding.ensureInitialized();
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  configureAppInjection(env);
-
-  await runZonedGuarded(
-        () async {
-      await BlocOverrides.runZoned(
-            () async => runApp(await builder()),
-        blocObserver: AppBlocObserver(),
-      );
-    },
-        (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
-  );
-
-  GetIt.instance.get<PraxisFirebaseMessaging>().setupMessaging();
 }

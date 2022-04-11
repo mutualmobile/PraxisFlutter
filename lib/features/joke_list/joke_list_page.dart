@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/features/joke_list/jokes_cubit.dart';
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
@@ -10,21 +11,26 @@ import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 
 import '../../models/response_state.dart';
 
-class JokeListPage extends StatelessWidget {
-  const JokeListPage({Key? key}) : super(key: key);
+class JokesPage extends StatelessWidget {
+  const JokesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => JokesCubit(),
       child: BlocListener<JokesCubit, ResponseState<UIJokeList>>(
-        child: jokesScaffold(),
+        child: const JokeListPage(),
         listener: (context, state) {},
       ),
     );
   }
+}
 
-  PraxisScaffold jokesScaffold() {
+class JokeListPage extends StatelessWidget {
+  const JokeListPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return PraxisScaffold(
         androidAppBar: AppBar(
           title: text(),
@@ -61,6 +67,7 @@ class JokeListPage extends StatelessWidget {
 
   retryButton(Failure state, BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(state.exception.toString()).paddingAll(8),
         PraxisButton(

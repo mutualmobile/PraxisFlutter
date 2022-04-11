@@ -21,27 +21,27 @@ final praxisRoutes = GoRouter(
 jokeListRoutePage() {
   return GoRoute(
     path: jokeListRoute,
-    builder: (context, state) => JokeListPage(),
+    builder: (context, state) => const JokesPage(),
   );
 }
 
 GoRoute homePageRoute() {
   return GoRoute(
     path: homeRoute,
-    builder: (context, state) => HomePage(),
+    builder: (context, state) => const HomePage(),
   );
 }
 
 GoRoute loginPageRoute() {
   return GoRoute(
     path: loginRoute,
-    builder: (context, state) => LoginPage(),
+    builder: (context, state) => const LoginPage(),
   );
 }
 
 GoRoute splashRoute() {
   return GoRoute(
     path: rootRoute,
-    builder: (context, state) => SplashScreen(),
+    builder: (context, state) => const SplashPage(),
   );
 }
