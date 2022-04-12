@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/features/joke_list/jokes_cubit.dart';
+import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
-import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 
 class JokesPage extends StatelessWidget {
   const JokesPage({Key? key}) : super(key: key);
@@ -64,16 +64,18 @@ class JokeListPage extends StatelessWidget {
   Text text() => const Text("Praxis");
 
   retryButton(JokesException state, BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(state.exception.toString()).paddingAll(8),
-        PraxisButton(
-            title: "Retry ?",
-            onPressed: () {
-              context.read<JokesCubit>().loadJokes();
-            })
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          PraxisButton(
+              title: "Retry ?",
+              onPressed: () {
+                context.read<JokesCubit>().loadJokes();
+              }),
+          Text(state.exception.toString()).paddingAll(8),
+        ],
+      ),
     );
   }
 }
