@@ -6,7 +6,7 @@ import 'package:praxis_flutter_domain/entities/login_request.dart';
 import 'package:praxis_flutter_domain/entities/login_result.dart';
 import 'package:praxis_flutter_domain/use_cases/login_use_case.dart';
 
-class LoginCubit extends Cubit<ResponseState<LoginResult>> {
+class LoginCubit extends Cubit<UiState<LoginResult>> {
   final loginController = TextEditingController(text: 'random@gmail.com');
   final passwordController = TextEditingController(text: 'random');
 

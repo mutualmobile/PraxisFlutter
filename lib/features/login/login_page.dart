@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginCubit(),
-      child: BlocListener<LoginCubit, ResponseState<LoginResult>>(
+      child: BlocListener<LoginCubit, UiState<LoginResult>>(
         child: PraxisScaffold(
           body: SafeArea(child: buildColumn(context)),
           iosNavBar: CupertinoNavigationBar(
@@ -62,7 +62,7 @@ class LoginPage extends StatelessWidget {
   Text title() => const Text("Login");
 
   Widget buildColumn(BuildContext context) {
-    return BlocBuilder<LoginCubit, ResponseState<LoginResult>>(
+    return BlocBuilder<LoginCubit, UiState<LoginResult>>(
         builder: (context, selected) {
       return Column(
         children: [
@@ -85,7 +85,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget loginButton(BuildContext context) {
-    return BlocBuilder<LoginCubit, ResponseState<LoginResult>>(
+    return BlocBuilder<LoginCubit, UiState<LoginResult>>(
         builder: (context, selected) {
       if (selected is Loading) {
         return const PraxisProgressBar();

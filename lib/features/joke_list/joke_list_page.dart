@@ -18,7 +18,7 @@ class JokesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => JokesCubit(),
-      child: BlocListener<JokesCubit, ResponseState<UIJokeList>>(
+      child: BlocListener<JokesCubit, UiState<UIJokeList>>(
         child: const JokeListPage(),
         listener: (context, state) {},
       ),
@@ -38,7 +38,7 @@ class JokeListPage extends StatelessWidget {
         iosNavBar: CupertinoNavigationBar(
           middle: text(),
         ),
-        body: BlocBuilder<JokesCubit, ResponseState<UIJokeList>>(
+        body: BlocBuilder<JokesCubit, UiState<UIJokeList>>(
             builder: (context, state) {
           return Stack(
             alignment: Alignment.center,
