@@ -8,8 +8,8 @@ import 'package:praxis_flutter_domain/entities/api_response.dart'
 import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
 
 class JokesCubit extends Cubit<UiState<UIJokeList>> {
-  GetFiveRandomJokesUseCase getFiveRandomJokesUseCase =
-      GetIt.instance.get<GetFiveRandomJokesUseCase>();
+  final getFiveRandomJokesUseCase = GetIt.I.get<GetFiveRandomJokesUseCase>();
+  final jokeMapper = GetIt.I.get<UIJokeMapper>();
 
   JokesCubit() : super(Initial()) {
     loadJokes();
@@ -30,8 +30,7 @@ class JokesCubit extends Cubit<UiState<UIJokeList>> {
             exception: (useCaseResponseJokes as api_response.Failure).error));
       } else if (useCaseResponseJokes is api_response.Success) {
         var jokes = (useCaseResponseJokes as api_response.Success);
-        final uiJokes =
-            GetIt.instance.get<UIJokeMapper>().mapToPresentation(jokes.data);
+        final uiJokes = jokeMapper.mapToPresentation(jokes.data);
         emit(Success(data: uiJokes));
       }
     }

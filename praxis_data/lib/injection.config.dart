@@ -7,17 +7,17 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart'
-    as _i5;
-import 'package:praxis_flutter_domain/repositories/login_repo.dart' as _i7;
+    as _i10;
+import 'package:praxis_flutter_domain/repositories/login_repo.dart' as _i5;
 import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart'
     as _i3;
-import 'package:praxis_flutter_domain/use_cases/login_use_case.dart' as _i9;
+import 'package:praxis_flutter_domain/use_cases/login_use_case.dart' as _i7;
 
 import 'mapper/jokes/jokes_mappers.dart' as _i4;
-import 'repositories/jokes/data_jokes_repository.dart' as _i6;
-import 'repositories/pr_login_repo.dart' as _i8;
-import 'sources/local/praxis_database.dart' as _i10;
-import 'sources/network/jokes_api.dart' as _i11;
+import 'repositories/jokes/data_jokes_repository.dart' as _i11;
+import 'repositories/pr_login_repo.dart' as _i6;
+import 'sources/local/praxis_database.dart' as _i8;
+import 'sources/network/jokes_api.dart' as _i9;
 import 'usecases/usecase_module.dart'
     as _i12; // ignore_for_file: unnecessary_lambdas
 
@@ -34,11 +34,15 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i4.JokeMapper>(() => _i4.JokeMapper());
     gh.factory<_i4.JokesListMapper>(
         () => _i4.JokesListMapper(get<_i4.JokeMapper>()));
-    gh.factory<_i5.JokesRepository>(() => _i6.DataJokesRepository());
-    gh.factory<_i7.LoginRepo>(() => _i8.PraxisLoginRepo());
-    gh.factory<_i9.LoginUseCase>(() => useCaseModule.loginUseCase);
-    gh.singleton<_i10.PraxisDatabase>(_i10.PraxisDatabase());
-    gh.factory<_i11.JokesApi>(() => _i11.JokesApi(get<_i4.JokesListMapper>()));
+    gh.factory<_i5.LoginRepo>(() => _i6.PraxisLoginRepo());
+    gh.factory<_i7.LoginUseCase>(() => useCaseModule.loginUseCase);
+    gh.singleton<_i8.PraxisDatabase>(_i8.PraxisDatabase());
+    gh.factory<_i9.JokesApi>(() => _i9.JokesApi(get<_i4.JokesListMapper>()));
+    gh.factory<_i10.JokesRepository>(() => _i11.DataJokesRepository(
+        get<_i4.JokesListMapper>(),
+        get<_i9.JokesApi>(),
+        get<_i8.PraxisDatabase>(),
+        get<_i4.JokeMapper>()));
     return this;
   }
 }
