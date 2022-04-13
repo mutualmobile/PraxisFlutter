@@ -6,7 +6,6 @@ Minimal Flutter project targeting the following platforms
 
 * Android ✅ DONE
 * iOS ✅ DONE
-* macOS ✅ DONE
 * Web ✅ DONE
 
 
