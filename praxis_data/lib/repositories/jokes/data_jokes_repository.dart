@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
@@ -21,23 +22,28 @@ class DataJokesRepository implements JokesRepository {
   @override
   Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {
     String? type;
-    try {
-      final networkResponse = await _jokesApi.getFiveRandomJokes();
-      if (networkResponse is Success) {
-        await _praxisDatabase.deleteAllJokes();
-        final networkJokes = (networkResponse as Success).data as DMJokeList;
-        final jokes = mapper.mapToData(networkJokes);
-        type = jokes.type;
-        jokes.jokeList.forEach((joke) {
-          _praxisDatabase.insertJoke(joke);
-        });
+    // Checking platform since sqflite doesn't support WEB
+    if (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
+      try {
+        final networkResponse = await _jokesApi.getFiveRandomJokes();
+        if (networkResponse is Success) {
+          await _praxisDatabase.deleteAllJokes();
+          final networkJokes = (networkResponse as Success).data as DMJokeList;
+          final jokes = mapper.mapToData(networkJokes);
+          type = jokes.type;
+          jokes.jokeList.forEach((joke) {
+            _praxisDatabase.insertJoke(joke);
+          });
+        }
+      } on Exception catch (e, _) {
+        return Failure(error: e);
       }
-    } on Exception catch (e, _) {
-      return Failure(error: e);
+      final dbJokes = await _praxisDatabase.getAllJokes();
+      final domainJokes =
+      dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
+      return Success(data: DMJokeList(type ?? "", domainJokes));
+    } else {
+      return _jokesApi.getFiveRandomJokes();
     }
-    final dbJokes = await _praxisDatabase.getAllJokes();
-    final domainJokes =
-        dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
-    return Success(data: DMJokeList(type ?? "", domainJokes));
   }
 }
