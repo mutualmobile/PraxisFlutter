@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
 import 'package:praxis_data/sources/local/praxis_database.dart';
 import 'package:praxis_data/sources/network/jokes_api.dart';
+import 'package:praxis_data/utils/platform_utils.dart';
 import 'package:praxis_flutter_domain/entities/api_response.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
@@ -23,7 +23,7 @@ class DataJokesRepository implements JokesRepository {
   Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {
     String? type;
     // Checking platform since sqflite doesn't support WEB
-    if (defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS) {
+    if (isMobile()) {
       try {
         final networkResponse = await _jokesApi.getFiveRandomJokes();
         if (networkResponse is Success) {
@@ -40,7 +40,7 @@ class DataJokesRepository implements JokesRepository {
       }
       final dbJokes = await _praxisDatabase.getAllJokes();
       final domainJokes =
-      dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
+          dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
       return Success(data: DMJokeList(type ?? "", domainJokes));
     } else {
       return _jokesApi.getFiveRandomJokes();

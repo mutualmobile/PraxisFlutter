@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
+import 'package:praxis_data/models/jokes/dt_joke_list.dart';
 import 'package:praxis_data/sources/network/exceptions/api_exception.dart';
 import 'package:praxis_data/sources/network/url.dart';
 import 'package:praxis_flutter_domain/entities/api_response.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
-
-import '../../models/jokes/dt_joke_list.dart';
 
 const String genericApiFailMsg = "Unexpected API response!";
 

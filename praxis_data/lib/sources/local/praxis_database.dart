@@ -10,7 +10,7 @@ const String _dbName = "praxis.db";
 
 @singleton
 class PraxisDatabase {
-  static Database? _database;
+  Database? _database;
 
   PraxisDatabase();
 
