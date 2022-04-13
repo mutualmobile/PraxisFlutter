@@ -13,7 +13,7 @@
 *.iml
 *.ipr
 *.iws
-.idea/libraries
+.idea/
 
 .gradle
 # The .vscode folder contains launch configuration and tasks you configure in
