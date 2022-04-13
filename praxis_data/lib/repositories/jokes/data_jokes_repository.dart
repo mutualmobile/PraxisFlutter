@@ -1,34 +1,49 @@
 import 'dart:async';
 
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logging/logging.dart';
-import 'package:praxis_data/mapper/entity_mapper.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
-import 'package:praxis_data/models/jokes/dt_joke_list.dart';
-import 'package:praxis_data/network/http_helper.dart';
-import 'package:praxis_data/network/url.dart';
-import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
+import 'package:praxis_data/sources/local/praxis_database.dart';
+import 'package:praxis_data/sources/network/jokes_api.dart';
+import 'package:praxis_data/utils/platform_utils.dart';
+import 'package:praxis_flutter_domain/entities/api_response.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
+import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
 
 @Injectable(as: JokesRepository)
 class DataJokesRepository implements JokesRepository {
-  final Logger _logger = Logger('DataJokesRepository');
+  final JokesListMapper mapper = GetIt.I.get();
+  final JokesApi _jokesApi = GetIt.I.get();
+  final PraxisDatabase _praxisDatabase = GetIt.I.get();
+  final JokeMapper _jokeMapper = GetIt.I.get();
 
-  JokesListMapper mapper;
-
-  DataJokesRepository(this.mapper);
+  DataJokesRepository();
 
   @override
-  Future<DMJokeList> getFiveRandomJokes() async {
-    Map<String, dynamic> body;
-    try {
-      Uri uri = Uri.https(URL.baseUrl, URL.fiveRandomJokesPath);
-      body = await HttpHelper.invokeHttp(uri, RequestType.get);
-    } catch (error) {
-      _logger.warning('Could not get Jokes', error);
-      rethrow;
+  Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {
+    String? type;
+    // Checking platform since sqflite doesn't support WEB
+    if (isMobile()) {
+      try {
+        final networkResponse = await _jokesApi.getFiveRandomJokes();
+        if (networkResponse is Success) {
+          await _praxisDatabase.deleteAllJokes();
+          final networkJokes = (networkResponse as Success).data as DMJokeList;
+          final jokes = mapper.mapToData(networkJokes);
+          type = jokes.type;
+          jokes.jokeList.forEach((joke) {
+            _praxisDatabase.insertJoke(joke);
+          });
+        }
+      } on Exception catch (e, _) {
+        return Failure(error: e);
+      }
+      final dbJokes = await _praxisDatabase.getAllJokes();
+      final domainJokes =
+          dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
+      return Success(data: DMJokeList(type ?? "", domainJokes));
+    } else {
+      return _jokesApi.getFiveRandomJokes();
     }
-    DTJokeList jokeList = DTJokeList.fromJson(body);
-    return mapper.mapToDomain(jokeList);
   }
 }

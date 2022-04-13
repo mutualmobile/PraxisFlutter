@@ -20,8 +20,6 @@ dependencies:
   cupertino_icons: ^1.0.4
   get_it: ^7.2.0
   injectable: ^1.5.3
-  logging: ^1.0.2
-  dio: ^4.0.6
   connectivity_plus: ^2.2.1
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13

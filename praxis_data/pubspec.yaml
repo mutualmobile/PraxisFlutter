@@ -14,7 +14,7 @@ dependencies:
     path: ../clean_architecture
   get_it: ^7.2.0
   injectable: ^1.5.3
-  logging: ^1.0.2
+  logger: ^1.1.0
   dio: ^4.0.6
   shared_preferences: ^2.0.13
   equatable: ^2.0.3
@@ -25,6 +25,7 @@ dependencies:
   google_sign_in: ^5.2.4
   praxis_flutter_domain:
     path: ../praxis_flutter_domain
+  sqflite: ^2.0.2
 
 
 dev_dependencies:

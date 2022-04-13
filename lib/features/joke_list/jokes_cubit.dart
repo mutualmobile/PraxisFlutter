@@ -3,7 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:praxis_flutter/models/ui_state.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_jokes_mapper.dart';
-import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
+import 'package:praxis_flutter_domain/entities/api_response.dart'
+    as api_response;
 import 'package:praxis_flutter_domain/use_cases/get_five_random_jokes_usecase.dart';
 
 class JokesCubit extends Cubit<UiState<UIJokeList>> {
@@ -20,9 +21,20 @@ class JokesCubit extends Cubit<UiState<UIJokeList>> {
   }
 
   void handleResponse(GetJokeListUseCaseResponse? response) {
-    var jokes = response?.jokeList ?? DMJokeList("EmptyList", []);
-    final uiJokes = GetIt.instance.get<UIJokeMapper>().mapToPresentation(jokes);
-    emit(Success(data: uiJokes));
+    final useCaseResponseJokes = response?.jokeList;
+    if (useCaseResponseJokes == null) {
+      emit(Failure(exception: Exception("Couldn't fetch jokes!")));
+    } else {
+      if (useCaseResponseJokes is api_response.Failure) {
+        emit(Failure(
+            exception: (useCaseResponseJokes as api_response.Failure).error));
+      } else if (useCaseResponseJokes is api_response.Success) {
+        var jokes = (useCaseResponseJokes as api_response.Success);
+        final uiJokes =
+            GetIt.instance.get<UIJokeMapper>().mapToPresentation(jokes.data);
+        emit(Success(data: uiJokes));
+      }
+    }
   }
 
   void complete() {}

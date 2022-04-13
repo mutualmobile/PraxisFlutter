@@ -1,17 +1,20 @@
 import 'dart:async';
+
 import 'package:clean_architecture/clean_architecture.dart';
+import 'package:clean_architecture/src/usecase.dart';
+import 'package:praxis_flutter_domain/entities/api_response.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
-import 'package:clean_architecture/src/usecase.dart';
 
-class GetFiveRandomJokesUseCase extends UseCase<GetJokeListUseCaseResponse, void> {
-
+class GetFiveRandomJokesUseCase
+    extends UseCase<GetJokeListUseCaseResponse, void> {
   final JokesRepository jokesRepository;
 
   GetFiveRandomJokesUseCase(this.jokesRepository);
 
   @override
-  Future<Stream<GetJokeListUseCaseResponse>> buildUseCaseStream(void params) async {
+  Future<Stream<GetJokeListUseCaseResponse>> buildUseCaseStream(
+      void params) async {
     final controller = StreamController<GetJokeListUseCaseResponse>();
     try {
       final jokeList = await jokesRepository.getFiveRandomJokes();
@@ -28,6 +31,7 @@ class GetFiveRandomJokesUseCase extends UseCase<GetJokeListUseCaseResponse, void
 }
 
 class GetJokeListUseCaseResponse {
-  final DMJokeList jokeList;
+  final ApiResponse<DMJokeList> jokeList;
+
   GetJokeListUseCaseResponse(this.jokeList);
 }
