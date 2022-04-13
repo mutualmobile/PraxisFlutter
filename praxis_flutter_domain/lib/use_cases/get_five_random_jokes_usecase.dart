@@ -31,7 +31,7 @@ class GetFiveRandomJokesUseCase
 }
 
 class GetJokeListUseCaseResponse {
-  final ApiResponse<DMJokeList> jokeList;
+  final ApiResponse<JokesListWithType> jokeList;
 
   GetJokeListUseCaseResponse(this.jokeList);
 }

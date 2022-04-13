@@ -22,7 +22,7 @@ class DataJokesRepository implements JokesRepository {
       this.mapper, this._jokesApi, this._praxisDatabase, this._jokeMapper);
 
   @override
-  Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {
+  Future<ApiResponse<JokesListWithType>> getFiveRandomJokes() async {
     String? type;
     // Checking platform since sqflite doesn't support WEB
     if (isMobile()) {
@@ -30,7 +30,7 @@ class DataJokesRepository implements JokesRepository {
         final networkResponse = await _jokesApi.getFiveRandomJokes();
         if (networkResponse is Success) {
           await _praxisDatabase.deleteAllJokes();
-          final networkJokes = (networkResponse as Success).data as DMJokeList;
+          final networkJokes = (networkResponse as Success).data as JokesListWithType;
           final jokes = mapper.mapToData(networkJokes);
           type = jokes.type;
           jokes.jokeList.forEach((joke) {
@@ -43,7 +43,7 @@ class DataJokesRepository implements JokesRepository {
       final dbJokes = await _praxisDatabase.getAllJokes();
       final domainJokes =
           dbJokes.map((dbJoke) => _jokeMapper.mapToDomain(dbJoke)).toList();
-      return Success(data: DMJokeList(type ?? "", domainJokes));
+      return Success(data: JokesListWithType(type ?? "", domainJokes));
     } else {
       return _jokesApi.getFiveRandomJokes();
     }

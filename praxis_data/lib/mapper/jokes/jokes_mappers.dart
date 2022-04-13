@@ -6,34 +6,34 @@ import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke.dart';
 
 @injectable
-class JokesListMapper extends EntityMapper<DMJokeList, DTJokeList> {
+class JokesListMapper extends EntityMapper<JokesListWithType, DTJokeList> {
   JokeMapper jokeMapper;
 
   JokesListMapper(this.jokeMapper);
 
   @override
-  DTJokeList mapToData(DMJokeList model) {
+  DTJokeList mapToData(JokesListWithType model) {
     return DTJokeList(model.type,
         model.jokeList.map((e) => jokeMapper.mapToData(e)).toList());
   }
 
   @override
-  DMJokeList mapToDomain(DTJokeList entity) {
-    return DMJokeList(entity.type,
+  JokesListWithType mapToDomain(DTJokeList entity) {
+    return JokesListWithType(entity.type,
         entity.jokeList.map((e) => jokeMapper.mapToDomain(e)).toList());
   }
 }
 
 @injectable
-class JokeMapper extends EntityMapper<DMJoke, DTJoke> {
+class JokeMapper extends EntityMapper<Joke, DTJoke> {
 
   @override
-  DTJoke mapToData(DMJoke model) {
+  DTJoke mapToData(Joke model) {
     return DTJoke(model.id, model.joke);
   }
 
   @override
-  DMJoke mapToDomain(DTJoke entity) {
-    return DMJoke(entity.id, entity.joke);
+  Joke mapToDomain(DTJoke entity) {
+    return Joke(entity.id, entity.joke);
   }
 }

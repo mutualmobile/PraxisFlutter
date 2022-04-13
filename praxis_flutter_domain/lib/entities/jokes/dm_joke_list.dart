@@ -1,9 +1,9 @@
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke.dart';
 import 'package:praxis_flutter_domain/mapper/ui_model_mapper.dart';
 
-class DMJokeList {
+class JokesListWithType {
   final String type;
-  final List<DMJoke> jokeList;
+  final List<Joke> jokeList;
 
-  DMJokeList(this.type, this.jokeList);
+  JokesListWithType(this.type, this.jokeList);
 }

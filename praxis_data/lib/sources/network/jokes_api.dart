@@ -18,7 +18,7 @@ class JokesApi {
 
   JokesApi(this._mapper);
 
-  Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {
+  Future<ApiResponse<JokesListWithType>> getFiveRandomJokes() async {
     try {
       final networkResponse = await dio
           .get(Uri.https(URL.baseUrl, URL.fiveRandomJokesPath).toString());

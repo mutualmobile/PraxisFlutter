@@ -5,15 +5,15 @@ import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke.dart';
 
 @injectable
-class UIJokeMapper extends UiModelMapper<DMJokeList, UIJokeList> {
+class UIJokeMapper extends UiModelMapper<JokesListWithType, UIJokeList> {
   @override
-  DMJokeList mapToDomain(UIJokeList modelItem) {
-    return DMJokeList(modelItem.type,
-        modelItem.jokes.map((e) => DMJoke(e.id, e.joke)).toList());
+  JokesListWithType mapToDomain(UIJokeList modelItem) {
+    return JokesListWithType(modelItem.type,
+        modelItem.jokes.map((e) => Joke(e.id, e.joke)).toList());
   }
 
   @override
-  UIJokeList mapToPresentation(DMJokeList model) {
+  UIJokeList mapToPresentation(JokesListWithType model) {
     return UIJokeList(
         model.type, model.jokeList.map((e) => UiJoke(e.id, e.joke)).toList());
   }
