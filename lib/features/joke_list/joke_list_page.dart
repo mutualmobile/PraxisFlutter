@@ -9,7 +9,7 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_progress_bar.d
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 
-import '../../models/response_state.dart';
+import '../../models/ui_state.dart';
 
 class JokesPage extends StatelessWidget {
   const JokesPage({Key? key}) : super(key: key);

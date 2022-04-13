@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:praxis_flutter/models/response_state.dart';
+import 'package:praxis_flutter/models/ui_state.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
 import 'package:praxis_flutter/ui/model/jokes/ui_jokes_mapper.dart';
 import 'package:praxis_flutter_domain/entities/jokes/dm_joke_list.dart';

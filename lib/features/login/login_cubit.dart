@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:praxis_flutter/models/response_state.dart';
+import 'package:praxis_flutter/models/ui_state.dart';
 import 'package:praxis_flutter_domain/entities/login_request.dart';
 import 'package:praxis_flutter_domain/entities/login_result.dart';
 import 'package:praxis_flutter_domain/use_cases/login_use_case.dart';

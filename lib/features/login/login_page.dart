@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:praxis_flutter/features/login/login_cubit.dart';
 import 'package:praxis_flutter/l10n/l10n.dart';
+import 'package:praxis_flutter/models/ui_state.dart';
 import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_dialog.dart';
@@ -14,8 +15,6 @@ import 'package:praxis_flutter/presentation/core/widgets/platform_text_field.dar
 import 'package:praxis_flutter/routing/routes.dart';
 import 'package:praxis_flutter_domain/entities/login_result.dart';
 import 'package:praxis_flutter_domain/validations.dart';
-
-import '../../models/response_state.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
