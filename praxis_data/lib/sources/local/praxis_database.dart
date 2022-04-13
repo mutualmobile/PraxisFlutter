@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:path/path.dart';
+import 'package:praxis_data/models/jokes/dt_joke.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../models/jokes/dt_joke.dart';
 
 const String _dbName = "praxis.db";
 

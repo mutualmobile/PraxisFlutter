@@ -23,16 +23,16 @@ class JokesCubit extends Cubit<UiState<UIJokeList>> {
   void handleResponse(GetJokeListUseCaseResponse? response) {
     final useCaseResponseJokes = response?.jokeList;
     if (useCaseResponseJokes == null) {
-      emit(Failure(Exception("Couldn't fetch jokes!")));
+      emit(Failure(exception: Exception("Couldn't fetch jokes!")));
     } else {
       if (useCaseResponseJokes is api_response.Failure) {
         emit(Failure(
-            (useCaseResponseJokes as api_response.Failure).error));
+            exception: (useCaseResponseJokes as api_response.Failure).error));
       } else if (useCaseResponseJokes is api_response.Success) {
         var jokes = (useCaseResponseJokes as api_response.Success);
         final uiJokes =
-        GetIt.instance.get<UIJokeMapper>().mapToPresentation(jokes.data);
-        emit(Success(uiJokes));
+            GetIt.instance.get<UIJokeMapper>().mapToPresentation(jokes.data);
+        emit(Success(data: uiJokes));
       }
     }
   }
