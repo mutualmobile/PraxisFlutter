@@ -7,6 +7,9 @@ import 'package:praxis_flutter/presentation/core/extensions/widget_extensions.da
 import 'package:praxis_flutter/presentation/core/widgets/platform_button.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_progress_bar.dart';
 import 'package:praxis_flutter/presentation/core/widgets/platform_scaffold.dart';
+import 'package:praxis_flutter/ui/model/jokes/ui_joke.dart';
+
+import '../../models/ui_state.dart';
 
 class JokesPage extends StatelessWidget {
   const JokesPage({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class JokesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => JokesCubit(),
-      child: BlocListener<JokesCubit, JokesState>(
+      child: BlocListener<JokesCubit, UiState<UIJokeList>>(
         child: const JokeListPage(),
         listener: (context, state) {},
       ),
@@ -35,35 +38,34 @@ class JokeListPage extends StatelessWidget {
         iosNavBar: CupertinoNavigationBar(
           middle: text(),
         ),
-        body: BlocBuilder<JokesCubit, JokesState>(builder: (context, state) {
-          return Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                state is JokesLoading
-                    ? const PraxisProgressBar()
-                    : state is JokesLoaded
-                        ? buildJokesList(state)
-                        : state is JokesException
-                            ? retryButton(state, context)
-                            : Container()
-              ],
-            ),
+        body: BlocBuilder<JokesCubit, UiState<UIJokeList>>(
+            builder: (context, state) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              state is Loading
+                  ? const PraxisProgressBar()
+                  : state is Success
+                      ? buildJokesList(state as Success)
+                      : state is Failure
+                          ? retryButton(state as Failure, context)
+                          : Container()
+            ],
           );
         }));
   }
 
-  ListView buildJokesList(JokesLoaded state) {
+  ListView buildJokesList(Success state) {
     return ListView.builder(
-        itemCount: (state).jokes.jokes.length,
+        itemCount: state.data.jokes.length,
         itemBuilder: (context, index) {
-          return Text(state.jokes.jokes[index].joke).paddingAll(8);
+          return Text(state.data.jokes[index].joke).paddingAll(8);
         });
   }
 
   Text text() => const Text("Praxis");
 
-  retryButton(JokesException state, BuildContext context) {
+  retryButton(Failure state, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
