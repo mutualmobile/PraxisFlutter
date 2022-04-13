@@ -16,8 +16,10 @@ import 'package:praxis_flutter_domain/use_cases/login_use_case.dart' as _i9;
 import 'mapper/jokes/jokes_mappers.dart' as _i4;
 import 'repositories/jokes/data_jokes_repository.dart' as _i6;
 import 'repositories/pr_login_repo.dart' as _i8;
+import 'sources/local/praxis_database.dart' as _i10;
+import 'sources/network/jokes_api.dart' as _i11;
 import 'usecases/usecase_module.dart'
-    as _i10; // ignore_for_file: unnecessary_lambdas
+    as _i12; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// an extension to register the provided dependencies inside of [GetIt]
@@ -32,12 +34,13 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i4.JokeMapper>(() => _i4.JokeMapper());
     gh.factory<_i4.JokesListMapper>(
         () => _i4.JokesListMapper(get<_i4.JokeMapper>()));
-    gh.factory<_i5.JokesRepository>(
-        () => _i6.DataJokesRepository(get<_i4.JokesListMapper>()));
+    gh.factory<_i5.JokesRepository>(() => _i6.DataJokesRepository());
     gh.factory<_i7.LoginRepo>(() => _i8.PraxisLoginRepo());
     gh.factory<_i9.LoginUseCase>(() => useCaseModule.loginUseCase);
+    gh.singleton<_i10.PraxisDatabase>(_i10.PraxisDatabase());
+    gh.factory<_i11.JokesApi>(() => _i11.JokesApi(get<_i4.JokesListMapper>()));
     return this;
   }
 }
 
-class _$UseCaseModule extends _i10.UseCaseModule {}
+class _$UseCaseModule extends _i12.UseCaseModule {}

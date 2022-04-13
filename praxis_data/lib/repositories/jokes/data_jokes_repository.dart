@@ -11,14 +11,12 @@ import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart';
 
 @Injectable(as: JokesRepository)
 class DataJokesRepository implements JokesRepository {
-  JokesListMapper mapper;
-  late JokesApi _jokesApi;
-  final PraxisDatabase _praxisDatabase = PraxisDatabase.instance;
+  final JokesListMapper mapper = GetIt.I.get();
+  final JokesApi _jokesApi = GetIt.I.get();
+  final PraxisDatabase _praxisDatabase = GetIt.I.get();
   final JokeMapper _jokeMapper = GetIt.I.get();
 
-  DataJokesRepository(this.mapper) {
-    _jokesApi = JokesApi(mapper);
-  }
+  DataJokesRepository();
 
   @override
   Future<ApiResponse<DMJokeList>> getFiveRandomJokes() async {

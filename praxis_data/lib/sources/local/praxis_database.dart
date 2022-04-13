@@ -8,13 +8,11 @@ import '../../models/jokes/dt_joke.dart';
 
 const String _dbName = "praxis.db";
 
-@injectable
+@singleton
 class PraxisDatabase {
-  static final PraxisDatabase instance = PraxisDatabase._init();
-
   static Database? _database;
 
-  PraxisDatabase._init();
+  PraxisDatabase();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -40,19 +38,19 @@ class PraxisDatabase {
   }
 
   Future<bool> insertJoke(DTJoke joke) async {
-    final db = await instance.database;
+    final db = await database;
     return await db.insert(jokesTable, joke.toJson(),
             conflictAlgorithm: ConflictAlgorithm.replace) >
         0;
   }
 
   Future<bool> deleteAllJokes() async {
-    final db = await instance.database;
+    final db = await database;
     return await db.delete(jokesTable) > 0;
   }
 
   Future<List<DTJoke>> getAllJokes() async {
-    final db = await instance.database;
+    final db = await database;
     final jokeMapList = await db.query(jokesTable);
     final List<DTJoke> jokeList =
         jokeMapList.map((jokeMap) => DTJoke.dtJokeFromJson(jokeMap)).toList();
@@ -60,7 +58,7 @@ class PraxisDatabase {
   }
 
   Future close() async {
-    final db = await instance.database;
+    final db = await database;
     db.close();
   }
 }

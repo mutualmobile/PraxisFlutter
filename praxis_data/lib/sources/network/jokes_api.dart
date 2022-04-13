@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
 import 'package:praxis_data/sources/network/exceptions/api_exception.dart';
@@ -10,6 +11,7 @@ import '../../models/jokes/dt_joke_list.dart';
 
 const String genericApiFailMsg = "Unexpected API response!";
 
+@injectable
 class JokesApi {
   final _logger = Logger();
   final dio = Dio();
