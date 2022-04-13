@@ -1,0 +1,66 @@
+import 'dart:async';
+
+import 'package:injectable/injectable.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../../models/jokes/dt_joke.dart';
+
+const String _dbName = "praxis.db";
+
+@injectable
+class PraxisDatabase {
+  static final PraxisDatabase instance = PraxisDatabase._init();
+
+  static Database? _database;
+
+  PraxisDatabase._init();
+
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _initDB(_dbName);
+    return _database!;
+  }
+
+  Future<Database> _initDB(String filePath) async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, filePath);
+    return await openDatabase(path, version: 1, onCreate: _createDB);
+  }
+
+  Future _createDB(Database db, int version) async {
+    const idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
+    const jokeType = "TEXT NOT NULL";
+    await db.execute("""
+      CREATE TABLE $jokesTable (
+      ${JokeFields.id} $idType,
+      ${JokeFields.joke} $jokeType
+      )
+      """);
+  }
+
+  Future<bool> insertJoke(DTJoke joke) async {
+    final db = await instance.database;
+    return await db.insert(jokesTable, joke.toJson(),
+            conflictAlgorithm: ConflictAlgorithm.replace) >
+        0;
+  }
+
+  Future<bool> deleteAllJokes() async {
+    final db = await instance.database;
+    return await db.delete(jokesTable) > 0;
+  }
+
+  Future<List<DTJoke>> getAllJokes() async {
+    final db = await instance.database;
+    final jokeMapList = await db.query(jokesTable);
+    final List<DTJoke> jokeList =
+        jokeMapList.map((jokeMap) => DTJoke.dtJokeFromJson(jokeMap)).toList();
+    return jokeList;
+  }
+
+  Future close() async {
+    final db = await instance.database;
+    db.close();
+  }
+}
