@@ -27,6 +27,20 @@ This project contains 3 flavors:
 - staging
 - production
 
+For your convenience, the following scripts have been written inside the 'scripts' package:
+1. praxis_development.sh
+2. praxis_staging.sh
+3. praxis_production.sh
+
+To run these, simply use the following 2 commands (taking the example of praxis_development.sh here):
+1. `cd scripts`
+2. On Windows:
+`praxis_development.sh`
+On Mac/Linux:
+`bash praxis_development.sh`
+and Press Enter/Return
+
+Also, please make sure that you have your device selected in the Flutter Device Section before running the script(s).
 
 ```sh
 To generate code for injectable
