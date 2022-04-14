@@ -30,8 +30,8 @@ cd ..
 echo "<---Generating translation files--->"
 flutter gen-l10n --template-arb-file=arb/app_en.arb
 
-# Build development flavor and run it
-echo "<---Building development flavor and running it--->"
-flutter run --flavor development --target lib/main_development.dart
+# Build staging flavor and run it
+echo "<---Building staging flavor and running it--->"
+flutter run --flavor staging --target lib/main_staging.dart
 echo "<---Press any key to exit--->"
 read -r
