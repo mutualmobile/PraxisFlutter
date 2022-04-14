@@ -1,4 +1,4 @@
-# Please make sure that you have your device selected in the Flutter Device Section before running this script
+# Please make sure that you have your device selected in the Flutter Device Selection window before running this script
 
 # Go to root dir from the current scripts dir
 echo "<---Going to root directory--->"

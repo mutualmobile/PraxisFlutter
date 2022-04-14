@@ -40,7 +40,7 @@ On Mac/Linux:
 `bash praxis_development.sh`
 and Press Enter/Return
 
-Also, please make sure that you have your device selected in the Flutter Device Section before running the script(s).
+Also, please make sure that you have your device selected in the Flutter Device Selection window before running the script(s).
 
 ```sh
 To generate code for injectable
