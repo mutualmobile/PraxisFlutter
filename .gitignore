@@ -124,3 +124,5 @@ app.*.map.json
 !.vscode/launch.json
 !.idea/codeStyles/
 !.idea/dictionaries/
+# No need to push mock files since they will be generated automatically while building
+*.mocks.dart
