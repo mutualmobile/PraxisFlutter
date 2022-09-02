@@ -1,10 +1,10 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:praxis_flutter/presentation/core/widgets/abstract_plaform_widget.dart';
-import 'package:praxis_flutter/routing/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:praxis_flutter/l10n/l10n.dart';
+import 'package:praxis_flutter/presentation/core/widgets/abstract_plaform_widget.dart';
+import 'package:praxis_flutter/routing/routes.dart';
 
 class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   /// Platform dependent app widget (CupertinoApp for iOS, MaterialApp for android)
@@ -15,6 +15,7 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
   @override
   CupertinoApp buildCupertino(BuildContext context) {
     return CupertinoApp.router(
+      routeInformationProvider: praxisRoutes.routeInformationProvider,
       debugShowCheckedModeBanner: false,
       title: title,
       theme: const CupertinoThemeData(),
@@ -33,6 +34,7 @@ class PraxisApp extends AbstractPlatformWidget<CupertinoApp, MaterialApp> {
     var lightTheme = FlexColorScheme.light(scheme: FlexScheme.blueWhale).toTheme;
     var darkTheme = FlexColorScheme.dark(scheme: FlexScheme.blueWhale).toTheme;
     return MaterialApp.router(
+      routeInformationProvider: praxisRoutes.routeInformationProvider,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         AppLocalizations.delegate,
