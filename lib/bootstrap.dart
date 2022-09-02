@@ -27,8 +27,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
 
   await runZonedGuarded(
     () async {
-      Bloc.observer = AppBlocObserver();
-      runApp(await builder());
+      await BlocOverrides.runZoned(
+        () async => runApp(await builder()),
+        blocObserver: AppBlocObserver(),
+      );
     },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
