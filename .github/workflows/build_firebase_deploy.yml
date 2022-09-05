@@ -79,10 +79,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ‘3.3’
           channel: 'stable'
-      - name: 'Flutter Version'
-        run: flutter --version
       - name: 'Run flutter pub get'
         run: flutter pub get
 
@@ -115,10 +112,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ‘3.3’
           channel: 'stable'
-      - name: 'Flutter Version'
-        run: flutter --version
       - name: 'Run flutter pub get'
         run: flutter pub get
 
@@ -179,10 +173,7 @@ jobs:
           java-version: '12.x'
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ‘3.3’
           channel: 'stable'
-      - name: 'Flutter Version'
-        run: flutter --version
       - name: 'Run flutter pub get'
         run: flutter pub get
       - name: 'Build Android apk'
