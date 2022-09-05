@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +20,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
 
   GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
+  HttpOverrides.global = MyHttpOverrides();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -26,11 +29,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
   configureAppInjection(env);
 
   await runZonedGuarded(
-    () async {
+        () async {
       Bloc.observer = AppBlocObserver();
       runApp(await builder());
     },
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+        (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 
   GetIt.instance.get<PraxisFirebaseMessaging>().setupMessaging();
@@ -45,4 +48,12 @@ void flutterLogError() {
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
 }
