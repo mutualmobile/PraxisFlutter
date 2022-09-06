@@ -1,6 +1,6 @@
 class Joke{
-  final int id;
-  final String joke;
+  final String id;
+  final String value;
 
-  Joke(this.id, this.joke);
+  Joke(this.id, this.value);
 }
