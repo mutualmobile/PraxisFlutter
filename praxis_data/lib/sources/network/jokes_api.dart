@@ -20,8 +20,7 @@ class JokesApi {
 
   Future<ApiResponse<JokesListWithType>> getFiveRandomJokes() async {
     try {
-      final networkResponse = await dio
-          .get(Uri.https(URL.baseUrl, URL.fiveRandomJokesPath).toString());
+      final networkResponse = await dio.get(URL.fiveRandomJokesUrl);
       if (networkResponse.data != null) {
         final parsedDataResponse = DTJokeList.fromJson(networkResponse.data);
         final parsedDomainResponse = _mapper.mapToDomain(parsedDataResponse);

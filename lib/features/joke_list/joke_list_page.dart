@@ -60,7 +60,7 @@ class JokeListPage extends StatelessWidget {
     return ListView.builder(
         itemCount: state.data.jokes.length,
         itemBuilder: (context, index) {
-          return Text(state.data.jokes[index].joke).paddingAll(8);
+          return Text(state.data.jokes[index].value).paddingAll(8);
         });
   }
 

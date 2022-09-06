@@ -1,27 +1,27 @@
 const String jokesTable = "jokesTable";
 
 class JokeFields {
-  static const String id = "_id";
-  static const String joke = "joke";
+  static const String id = "id";
+  static const String value = "value";
 }
 
 class DTJoke {
-  final int id;
-  final String joke;
+  final String id;
+  final String value;
 
-  DTJoke(this.id, this.joke);
+  DTJoke(this.id, this.value);
 
   DTJoke.fromJson(Map<String, dynamic> map)
       : id = map['id'],
-        joke = map['joke'];
+        value = map['value'];
 
-  Map<String, Object?> toJson() => {JokeFields.id: id, JokeFields.joke: joke};
+  Map<String, Object?> toJson() => {JokeFields.id: id, JokeFields.value: value};
 
   static DTJoke dtJokeFromJson(Map<String, Object?> json) =>
-      DTJoke(json[JokeFields.id] as int? ?? 0, json[JokeFields.joke] as String);
+      DTJoke(json[JokeFields.id] as String, json[JokeFields.value] as String);
 
   @override
   String toString() {
-    return '$id, $joke';
+    return '$id, $value';
   }
 }
