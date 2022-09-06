@@ -13,13 +13,13 @@ class JokesListMapper extends EntityMapper<JokesListWithType, DTJokeList> {
 
   @override
   DTJokeList mapToData(JokesListWithType model) {
-    return DTJokeList(model.type,
+    return DTJokeList(
         model.jokeList.map((e) => jokeMapper.mapToData(e)).toList());
   }
 
   @override
   JokesListWithType mapToDomain(DTJokeList entity) {
-    return JokesListWithType(entity.type,
+    return JokesListWithType(
         entity.jokeList.map((e) => jokeMapper.mapToDomain(e)).toList());
   }
 }
@@ -29,11 +29,11 @@ class JokeMapper extends EntityMapper<Joke, DTJoke> {
 
   @override
   DTJoke mapToData(Joke model) {
-    return DTJoke(model.id, model.joke);
+    return DTJoke(model.id, model.value);
   }
 
   @override
   Joke mapToDomain(DTJoke entity) {
-    return Joke(entity.id, entity.joke);
+    return Joke(entity.id, entity.value);
   }
 }

@@ -32,7 +32,7 @@ class PraxisDatabase {
     await db.execute("""
       CREATE TABLE $jokesTable (
       ${JokeFields.id} $idType,
-      ${JokeFields.joke} $jokeType
+      ${JokeFields.value} $jokeType
       )
       """);
   }
