@@ -104,6 +104,7 @@ coverage/
 !pubspec.lock
 packages/**/pubspec.lock
 
+pubspec.lock
 # Web related
 lib/generated_plugin_registrant.dart
 

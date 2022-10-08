@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
 
   Widget showRandomJokes(BuildContext context) {
     return PraxisButton(
-        title: "Show 5 random Jokes",
+        title: "Show random Jokes",
         onPressed: () {
           context.push(jokeListRoute);
         });

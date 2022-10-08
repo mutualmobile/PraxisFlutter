@@ -108,8 +108,8 @@ class PraxisFirebaseMessaging {
     }
   }
 
-  IOSNotificationDetails iosNotificationDetails(AppleNotification? apple) {
-    return IOSNotificationDetails(
+  DarwinNotificationDetails iosNotificationDetails(AppleNotification? apple) {
+    return DarwinNotificationDetails(
         sound: apple?.sound?.name, subtitle: apple?.subtitle);
   }
 

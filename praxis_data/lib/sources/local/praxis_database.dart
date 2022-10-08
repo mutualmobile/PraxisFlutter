@@ -27,7 +27,7 @@ class PraxisDatabase {
   }
 
   Future _createDB(Database db, int version) async {
-    const idType = "INTEGER PRIMARY KEY AUTOINCREMENT";
+    const idType = "TEXT PRIMARY KEY";
     const jokeType = "TEXT NOT NULL";
     await db.execute("""
       CREATE TABLE $jokesTable (
