@@ -3,28 +3,28 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "canvaskit/canvaskit.js": "2bc454a691c631b07a9307ac4ca47797",
+  "favicon.png": "5dcef449791fa27946b3d35ad8803796",
+"main.dart.js": "e400313bc79e2d72db0d5493820f0fb8",
+"index.html": "6dbd23ecad560b14107c56848e517ba4",
+"/": "6dbd23ecad560b14107c56848e517ba4",
+"flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
+"manifest.json": "dc35598a42daf79414fec2216de3ec22",
+"canvaskit/canvaskit.js": "2bc454a691c631b07a9307ac4ca47797",
+"canvaskit/canvaskit.wasm": "bf50631470eb967688cca13ee181af62",
 "canvaskit/profiling/canvaskit.js": "38164e5a72bdad0faa4ce740c9b8e564",
 "canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
-"canvaskit/canvaskit.wasm": "bf50631470eb967688cca13ee181af62",
-"main.dart.js": "3f3840c8a55276d647a3328f764aa347",
 "assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
-"assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
-"assets/shaders/ink_sparkle.frag": "941bb03e508e6832dc7e1bd98b54ab44",
+"assets/shaders/ink_sparkle.frag": "0cfae77e432d12ec44627f8d9eacbc65",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/NOTICES": "0ed695b8646d6516cf7012e120d8ef64",
-"flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
-"firebase-messaging-sw.js": "70e0e105cb90e0a5455754e37263da81",
-"index.html": "db6dbdfaf2ccd83ffbe237bfa81792bb",
-"/": "db6dbdfaf2ccd83ffbe237bfa81792bb",
-"favicon.png": "5dcef449791fa27946b3d35ad8803796",
+"assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
+"assets/NOTICES": "766b3defc275f5d7fcea51df4e062b76",
 "version.json": "e90b1b84151fb369e480d7bfe2f2219c",
-"manifest.json": "dc35598a42daf79414fec2216de3ec22",
-"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
-"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
+"firebase-messaging-sw.js": "70e0e105cb90e0a5455754e37263da81",
+"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1"
+"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
+"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea"
 };
 
 // The application shell files that are downloaded before a service worker can
