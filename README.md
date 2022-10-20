@@ -27,6 +27,17 @@ This project contains 3 flavors:
 - staging
 - production
 
+For your convenience, a single script has been written inside the 'scripts' package (buildPraxisFlutter.sh).
+
+To run it, simply use the following 2 commands :
+1. `cd scripts`
+2. On Windows:
+`buildPraxisFlutter.sh`
+On Mac/Linux:
+`bash buildPraxisFlutter.sh`
+and Press Enter/Return
+
+Also, please make sure that you have your device selected in the Flutter Device Selection window before running the script(s).
 
 ```sh
 To generate code for injectable
