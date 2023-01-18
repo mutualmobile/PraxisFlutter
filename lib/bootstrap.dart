@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:logging/logging.dart';
 import 'package:praxis_flutter/bloc/app_bloc_observer.dart';
 import 'package:praxis_flutter/firebase_options.dart';
@@ -18,7 +18,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+  //GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+  usePathUrlStrategy();
 
   HttpOverrides.global = MyHttpOverrides();
 
