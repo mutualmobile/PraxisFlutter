@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:praxis_data/mapper/jokes/jokes_mappers.dart';
 import 'package:praxis_data/sources/local/praxis_database.dart';
@@ -31,9 +30,9 @@ class DataJokesRepository implements JokesRepository {
           await _praxisDatabase.deleteAllJokes();
           final networkJokes = (networkResponse as Success).data as JokesListWithType;
           final jokes = mapper.mapToData(networkJokes);
-          jokes.jokeList.forEach((joke) {
+          for (var joke in jokes.jokeList) {
             _praxisDatabase.insertJoke(joke);
-          });
+          }
         }
       } on Exception catch (e, _) {
         return Failure(error: e);
