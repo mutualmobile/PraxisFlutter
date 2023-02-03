@@ -1,0 +1,19 @@
+name: Create flutter linux build
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'beta'
+      - run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+      - run: cp lib/main_production.dart lib/main.dart
+      - run: flutter config --enable-linux-desktop
+      - run: flutter create --platforms=linux --project-name=praxis_flutter praxis_flutter
+      - run: flutter build linux
