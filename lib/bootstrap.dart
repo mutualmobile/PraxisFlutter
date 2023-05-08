@@ -18,7 +18,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder, String env) async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
+  // GoRouter.setUrlPathStrategy(UrlPathStrategy.path);
 
   HttpOverrides.global = MyHttpOverrides();
 
