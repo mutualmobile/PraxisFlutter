@@ -45,6 +45,7 @@ dependencies:
     path: ./praxis_flutter_domain
   praxis_data:
     path: ./praxis_data
+  mockito: ^5.1.0
 
 
 dev_dependencies:
