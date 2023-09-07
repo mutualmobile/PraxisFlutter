@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:praxis_flutter_domain/repositories/jokes/jokes_repository.dart'
@@ -25,9 +26,15 @@ import 'usecases/usecase_module.dart'
 /// an extension to register the provided dependencies inside of [GetIt]
 extension GetItInjectableX on _i1.GetIt {
   /// initializes the registration of provided dependencies inside of [GetIt]
-  _i1.GetIt $initGetIt(
-      {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
-    final gh = _i2.GetItHelper(this, environment, environmentFilter);
+  _i1.GetIt $initGetIt({
+    String? environment,
+    _i2.EnvironmentFilter? environmentFilter,
+  }) {
+    final gh = _i2.GetItHelper(
+      this,
+      environment,
+      environmentFilter,
+    );
     final useCaseModule = _$UseCaseModule();
     gh.factory<_i3.GetFiveRandomJokesUseCase>(
         () => useCaseModule.getJokesUseCase);
@@ -39,10 +46,11 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i8.PraxisDatabase>(_i8.PraxisDatabase());
     gh.factory<_i9.JokesApi>(() => _i9.JokesApi(get<_i4.JokesListMapper>()));
     gh.factory<_i10.JokesRepository>(() => _i11.DataJokesRepository(
-        get<_i4.JokesListMapper>(),
-        get<_i9.JokesApi>(),
-        get<_i8.PraxisDatabase>(),
-        get<_i4.JokeMapper>()));
+          get<_i4.JokesListMapper>(),
+          get<_i9.JokesApi>(),
+          get<_i8.PraxisDatabase>(),
+          get<_i4.JokeMapper>(),
+        ));
     return this;
   }
 }

@@ -170,7 +170,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE }}
       - uses: actions/setup-java@v1
         with:
-          java-version: '12.x'
+          java-version: '17.x'
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'

@@ -26,6 +26,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace "com.mutualmobile.praxis_flutter"
     compileSdkVersion 33
 
     compileOptions {
@@ -42,7 +43,6 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.mutualmobile.praxis_flutter"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -96,6 +96,10 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 }
 
